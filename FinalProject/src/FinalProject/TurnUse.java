@@ -9,6 +9,6 @@ public class TurnUse extends Turn {
 	
 	// apply the effects of toUse to the specified actor
 	public void execute(Actor a) {
-		
+		toUse.use(a);
 	}
 }

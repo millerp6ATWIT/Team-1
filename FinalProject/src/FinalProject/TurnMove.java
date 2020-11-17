@@ -9,6 +9,6 @@ public class TurnMove extends Turn {
 	
 	// set position of actor to destination
 	public void execute(Actor a) {
-		
+		a.setPosition(destination);
 	}
 }
