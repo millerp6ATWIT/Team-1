@@ -10,10 +10,19 @@ public class Entity {
 		position = pos;
 		this.name = name;
 	}
-	
+
 	public Entity(String entityData) {
 		
 	}
 	
+	public int[] getPosition() {
+		return position;
+	}
+	public void setPosition(int[] pos) {
+		position = pos;
+	}
 	
+	public String getName() {
+		return name;
+	}
 }

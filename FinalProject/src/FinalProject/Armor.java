@@ -3,9 +3,16 @@ package FinalProject;
 public class Armor extends Item{
 	private int protection;
 	
-	public Armor(int mag, boolean inInven, Entity owner) {
+	public Armor(int protection, boolean inInven, Entity owner) {
 		super(inInven, owner);
-		protection = mag;
+		this.protection = protection;
+	}
+	
+	public int getProtection() {
+		return protection;
+	}
+	public void setProtection(int newProtec) {
+		protection = newProtec;
 	}
 	
 	public void use(Entity e) {

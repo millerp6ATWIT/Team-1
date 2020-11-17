@@ -10,6 +10,14 @@ public class Consumable extends Item {
 		targetStat = stat;
 	}
 	
+	public int getValue() {
+		return value;
+	}
+	
+	public String getTargetStat() {
+		return targetStat;
+	}
+	
 	public void use(Entity e) {
 		
 	}

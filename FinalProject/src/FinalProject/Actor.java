@@ -19,4 +19,18 @@ public class Actor extends Entity {
 	public Actor(String entityData) {
 		super(entityData);
 	}
+	
+	public ArrayList<Item> getInventory() {
+		return inventory;
+	}
+	public void setInventory(ArrayList<Item> newInven ){
+		inventory = newInven;
+	}
+	
+	public Turn getMyTurn() {
+		return myTurn;
+	}
+	public void setMyTurn(Turn newTurn) {
+		myTurn = newTurn;
+	}
 }
