@@ -10,4 +10,18 @@ public class Actor extends Entity {
 		super(pos, name);
 		inventory = inv;
 	}
+	
+	public ArrayList<Item> getInventory() {
+		return inventory;
+	}
+	public void setInventory(ArrayList<Item> newInven ){
+		inventory = newInven;
+	}
+	
+	public Turn getMyTurn() {
+		return myTurn;
+	}
+	public void setMyTurn(Turn newTurn) {
+		myTurn = newTurn;
+	}
 }

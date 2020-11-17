@@ -8,6 +8,13 @@ public class Armor extends Item{
 		this.protection = protection;
 	}
 	
+	public int getProtection() {
+		return protection;
+	}
+	public void setProtection(int newProtec) {
+		protection = newProtec;
+	}
+	
 	public void use(Entity e) {
 		
 	}

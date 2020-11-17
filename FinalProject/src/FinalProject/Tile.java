@@ -8,4 +8,8 @@ public class Tile extends Entity{
 		impassable = collision;
 	}
 	
+	public boolean getImpassable() {
+		return impassable;
+	}
+	
 }

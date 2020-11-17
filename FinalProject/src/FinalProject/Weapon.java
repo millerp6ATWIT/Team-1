@@ -8,6 +8,13 @@ public class Weapon extends Item{
 		this.damage = damage;
 	}
 	
+	public int getDamage() {
+		return damage;
+	}
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	
 	public void use(Entity e) {
 		
 	}
