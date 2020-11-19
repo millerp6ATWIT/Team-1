@@ -1,17 +1,19 @@
 package FinalProject;
 
-public class Equipable extends Item {
+public abstract class Equipable extends Item {
+	protected boolean isEquipped;
 	
 	public Equipable(boolean inInven, Entity owner) {
 		super(inInven, owner);
+		isEquipped = false;
 	}
 	
-	public void use(Entity e) {
-		
-	}
+	public abstract void use(Entity e);
 	
-	public void use(Actor a) {
-		
+	public abstract void use(Actor a);
+	
+	public boolean getIsEquipped() {
+		return isEquipped;
 	}
 	
 }

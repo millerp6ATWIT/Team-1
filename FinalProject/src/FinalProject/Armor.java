@@ -1,6 +1,6 @@
 package FinalProject;
 
-public class Armor extends Item{
+public class Armor extends Equipable {
 	private int protection;
 	
 	public Armor(int protection, boolean inInven, Entity owner) {

@@ -1,8 +1,8 @@
 package FinalProject;
 
 public abstract class Item {
-	private boolean inInventory;
-	private Entity owner;
+	protected boolean inInventory;
+	protected Entity owner;
 	
 	public Item(boolean inInven, Entity owner) {
 		inInventory = inInven;
@@ -25,6 +25,5 @@ public abstract class Item {
 	
 	// apply the effects of the item to the actor
 	public abstract void use(Actor a);
-	
 	
 }

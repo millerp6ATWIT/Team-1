@@ -1,6 +1,8 @@
 package FinalProject;
 
-public class Weapon extends Item{
+import java.util.Map;
+
+public class Weapon extends Equipable {
 	private int damage;
 	
 	public Weapon(int damage, boolean inInven, Entity owner) {
@@ -11,6 +13,7 @@ public class Weapon extends Item{
 	public int getDamage() {
 		return damage;
 	}
+	
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
@@ -20,8 +23,15 @@ public class Weapon extends Item{
 	}
 	
 	public void use(Actor a) {
-		
+		if(a == owner) {
+			Weapon equippedWeapon = a.getEquippedWeapon();
+			if (equippedWeapon != null)
+				equippedWeapon.isEquipped = false;
+			isEquipped = true;
+		} else {
+			Map<String, Integer> targetStats = a.getStats();
+			targetStats.put("HP", targetStats.get("HP") - damage);
+		}
 	}
 	
 }
-//merge
