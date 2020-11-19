@@ -24,3 +24,4 @@ public class Weapon extends Item{
 	}
 	
 }
+//merge
