@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.io.File;
 
 public class Actor extends Entity {
+	public static String[] genericStats = {"HP", "DEF"};
+	
 	private Map<String, Integer> stats;
 	private ArrayList<Item> inventory;
 	private Turn myTurn;
@@ -23,6 +25,7 @@ public class Actor extends Entity {
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}
+	
 	public void setInventory(ArrayList<Item> newInven ){
 		inventory = newInven;
 	}
@@ -30,9 +33,43 @@ public class Actor extends Entity {
 	public Turn getMyTurn() {
 		return myTurn;
 	}
+	
 	public void setMyTurn(Turn newTurn) {
 		myTurn = newTurn;
 	}
+	
+	public Map<String, Integer> getStats() {
+		return stats;
+	}
+	
+	public Armor getEquippedArmor() {
+		for(Item i: inventory) {
+			if(i instanceof Equipable) {
+				if(i instanceof Armor) {
+					Armor a = (Armor) i;
+					if(a.getIsEquipped()) {
+						return a;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public Weapon getEquippedWeapon() {
+		for(Item i: inventory) {
+			if(i instanceof Equipable) {
+				if(i instanceof Weapon) {
+					Weapon w = (Weapon) i;
+					if(w.getIsEquipped()) {
+						return w;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
 }
 
 //A
