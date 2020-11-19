@@ -34,3 +34,5 @@ public class Actor extends Entity {
 		myTurn = newTurn;
 	}
 }
+
+//A
