@@ -2,6 +2,8 @@ package entity;
 
 import java.util.Scanner;
 
+import game.Game;
+
 public class Entity {
 	private int[] position;
 	private String name;
@@ -12,7 +14,7 @@ public class Entity {
 	}
 
 	public Entity(String entityData) {
-		
+		name = Game.extractAttribute(entityData, "name");
 	}
 	
 	public int[] getPosition() {

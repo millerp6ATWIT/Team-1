@@ -11,6 +11,10 @@ public abstract class Equipable extends Item {
 		isEquipped = false;
 	}
 	
+	public Equipable(String itemData) {
+		super(itemData);
+	}
+	
 	public abstract void use(Entity e);
 	
 	public abstract void use(Actor a);
