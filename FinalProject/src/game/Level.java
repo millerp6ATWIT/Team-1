@@ -1,6 +1,9 @@
-package FinalProject;
+package game;
 
 import java.util.ArrayList;
+
+import entity.Entity;
+
 import java.io.File;
 
 public class Level {

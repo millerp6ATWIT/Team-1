@@ -1,4 +1,6 @@
-package FinalProject;
+package turn;
+
+import entity.Actor;
 
 public class TurnMove extends Turn {
 	private int[] destination;

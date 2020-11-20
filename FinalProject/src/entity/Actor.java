@@ -1,7 +1,14 @@
-package FinalProject;
+package entity;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import item.Armor;
+import item.Equipable;
+import item.Item;
+import item.Weapon;
+import turn.Turn;
+
 import java.util.HashMap;
 import java.io.File;
 

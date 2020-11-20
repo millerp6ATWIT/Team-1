@@ -1,10 +1,16 @@
-package FinalProject;
+package game;
 
 import java.nio.file.Path;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Map;
+
+import entity.Actor;
+import item.Item;
+import item.Weapon;
+import turn.TurnUse;
+
 import java.util.HashMap;
 
 public class Game {

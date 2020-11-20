@@ -1,6 +1,9 @@
-package FinalProject;
+package item;
 
 import java.util.Map;
+
+import entity.Actor;
+import entity.Entity;
 
 public class Weapon extends Equipable {
 	private int damage;

@@ -1,4 +1,4 @@
-package FinalProject;
+package entity;
 
 import java.util.Scanner;
 
