@@ -27,7 +27,6 @@ public class Weapon extends Equipable {
 	}
 	
 	public void use(Entity e) {
-		
 	}
 	
 	public void use(Actor a) {

@@ -1,5 +1,7 @@
 package item;
 
+import java.util.Map;
+
 import entity.Actor;
 import entity.Entity;
 
@@ -22,11 +24,11 @@ public class Consumable extends Item {
 	}
 	
 	public void use(Entity e) {
-		
 	}
 	
 	public void use(Actor a) {
-		
+		Map<String, Integer> targetStats = a.getStats();
+		targetStats.put(targetStat, targetStats.get(targetStat) - value);
 	}
 	
 }

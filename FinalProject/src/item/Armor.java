@@ -1,5 +1,7 @@
 package item;
 
+import java.util.Map;
+
 import entity.Actor;
 import entity.Entity;
 
@@ -19,11 +21,11 @@ public class Armor extends Equipable {
 	}
 	
 	public void use(Entity e) {
-		
 	}
 	
 	public void use(Actor a) {
-		
+		Map<String, Integer> targetStats = a.getStats();
+		targetStats.put("DEF", targetStats.get("DEF") - protection);
 	}
 	
 }
