@@ -1,4 +1,7 @@
-package FinalProject;
+package turn;
+
+import entity.Actor;
+import item.Item;
 
 public class TurnUse extends Turn {
 	private Item toUse;

@@ -1,4 +1,4 @@
-package FinalProject;
+package entity;
 
 public class Tile extends Entity{
 	private boolean impassable;

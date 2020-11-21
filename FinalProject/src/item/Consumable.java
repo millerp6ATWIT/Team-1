@@ -1,4 +1,7 @@
-package FinalProject;
+package item;
+
+import entity.Actor;
+import entity.Entity;
 
 public class Consumable extends Item {
 	private int value;

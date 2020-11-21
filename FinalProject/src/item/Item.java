@@ -1,12 +1,21 @@
-package FinalProject;
+package item;
+
+import entity.Actor;
+import entity.Entity;
+import game.Game;
 
 public abstract class Item {
 	protected boolean inInventory;
+	protected String name;
 	protected Entity owner;
 	
 	public Item(boolean inInven, Entity owner) {
 		inInventory = inInven;
 		this.owner = owner;
+	}
+	
+	public Item(String itemData) {
+		name = Game.extractAttribute(itemData, "name");
 	}
 	
 	public boolean getInInventory() {

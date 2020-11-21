@@ -1,0 +1,8 @@
+name:Test Enemy,
+HP:10,
+DEF:0,
+
+STR? - add to melee attack
+DEX? - add to ranged attack
+INT? - add to scroll damage
+sprite file? - path of sprite to render

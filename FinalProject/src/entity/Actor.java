@@ -1,7 +1,15 @@
-package FinalProject;
+package entity;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import game.Game;
+import item.Armor;
+import item.Equipable;
+import item.Item;
+import item.Weapon;
+import turn.Turn;
+
 import java.util.HashMap;
 import java.io.File;
 
@@ -20,6 +28,11 @@ public class Actor extends Entity {
 	
 	public Actor(String entityData) {
 		super(entityData);
+		stats = new HashMap<String, Integer>();
+		inventory = new ArrayList<Item>();
+		for(String attribute: genericStats) {
+			stats.put(attribute, Integer.parseInt(Game.extractAttribute(entityData, attribute)));
+		}
 	}
 	
 	public ArrayList<Item> getInventory() {
@@ -71,5 +84,3 @@ public class Actor extends Entity {
 	}
 	
 }
-
-//A

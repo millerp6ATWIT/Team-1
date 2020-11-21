@@ -1,6 +1,9 @@
-package FinalProject;
+package item;
 
 import java.util.Map;
+import game.Game;
+import entity.Actor;
+import entity.Entity;
 
 public class Weapon extends Equipable {
 	private int damage;
@@ -8,6 +11,11 @@ public class Weapon extends Equipable {
 	public Weapon(int damage, boolean inInven, Entity owner) {
 		super(inInven, owner);
 		this.damage = damage;
+	}
+	
+	public Weapon(String itemData) {
+		super(itemData);
+		damage = Integer.parseInt(Game.extractAttribute(itemData, "damage"));
 	}
 	
 	public int getDamage() {
@@ -35,5 +43,3 @@ public class Weapon extends Equipable {
 	}
 	
 }
-
-//a

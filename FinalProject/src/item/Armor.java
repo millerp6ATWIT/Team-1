@@ -1,4 +1,7 @@
-package FinalProject;
+package item;
+
+import entity.Actor;
+import entity.Entity;
 
 public class Armor extends Equipable {
 	private int protection;
