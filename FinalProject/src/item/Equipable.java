@@ -24,5 +24,3 @@ public abstract class Equipable extends Item {
 	}
 	
 }
-
-
