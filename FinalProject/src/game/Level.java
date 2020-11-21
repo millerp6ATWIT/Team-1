@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import entity.Entity;
 
 import java.io.File;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Level {
 	private ArrayList<Entity> entities;
@@ -23,6 +24,14 @@ public class Level {
 	// given a csv file, populate arraylist of entites
 	public void loadFile(File f) {
 		
+	}
+	
+	public void addEntity(Entity toAdd) {
+		entities.add(toAdd);
+	}
+	
+	public ArrayList<Entity> getEntities() {
+		return entities;
 	}
 	
 }
