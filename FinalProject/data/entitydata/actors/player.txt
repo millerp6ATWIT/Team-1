@@ -1,5 +1,5 @@
 type:actor,
-name:Test Enemy,
+name:Player,
 HP:10,
 DEF:0,
 STR:0,

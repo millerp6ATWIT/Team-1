@@ -30,18 +30,17 @@ import javafx.scene.text.*;
 import javafx.geometry.Pos;
 
 public class Game extends Application {
-	final int WINDOW_HEIGHT = 512;
-	final int WINDOW_WIDTH = 1024;
+	final static int WINDOW_HEIGHT = 512;
+	final static int WINDOW_WIDTH = 1024;
+	final static String DATA_DIR = "data\\";
 	
 	Level level;
 	Actor player;
 	int turn = 0;
 	
 	public void init() {
-		level = new Level(new ArrayList<Entity>());
-		player = new Actor(fileToString(new File("data\\entitydata\\actors\\testenemy.txt")));
-		player.setPosition(new int[] {0, 0});
-		level.addEntity(player);
+		level = new Level(fileToString(new File("data\\leveldata\\header.txt")), fileToString(new File("data\\leveldata\\level1.txt")));
+		player = level.getPlayer();
 	}
 	
 	public void stop() {
@@ -71,9 +70,12 @@ public class Game extends Application {
 	}
 	
 	public void processTurns() {
+		player.doTurn();
+		
 		for(Entity e: level.getEntities()) {
-			if(e instanceof Actor) {
+			if(e instanceof Actor && e != player) {
 				Actor a = (Actor) e;
+				a.setMyTurn(new TurnPass());
 				a.doTurn();
 			}
 		}
@@ -104,8 +106,22 @@ public class Game extends Application {
 			player.setMyTurn(new TurnMove(destination, player));
 		}
 		
-		if(player.getMyTurn() != null) {
-			processTurns();
+		Turn playerTurn = player.getMyTurn();
+		if(playerTurn != null) {
+			boolean isLegal;
+			if (playerTurn instanceof TurnMove) {
+				isLegal = ((TurnMove) playerTurn).isLegal(level);
+			} else if(playerTurn instanceof TurnUse) {
+				isLegal = ((TurnUse) playerTurn).isLegal();
+			} else {
+				isLegal = true;
+			}
+			
+			if(isLegal) {
+				processTurns();
+			} else {
+				player.setMyTurn(null);
+			}
 		}
 	}
 	
@@ -117,7 +133,7 @@ public class Game extends Application {
 		Text turnCounter = new Text();
 		
 		turnCounter.setX(20);
-		turnCounter.setY(20);
+		turnCounter.setY(WINDOW_HEIGHT - 20);
 		turnCounter.setScaleX(2);
 		turnCounter.setScaleY(2);
 		

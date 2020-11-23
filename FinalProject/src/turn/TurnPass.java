@@ -9,5 +9,4 @@ public class TurnPass extends Turn {
 	
 	// do nothing
 	public void execute() {}
-
 }

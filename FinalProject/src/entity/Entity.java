@@ -10,8 +10,8 @@ import javafx.scene.paint.Paint;
 public class Entity {
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
-	private int[] position;
-	private String name;
+	protected int[] position;
+	protected String name;
 	
 	public Entity(int[] pos, String name) {
 		position = pos;
@@ -24,7 +24,7 @@ public class Entity {
 	
 	public void render(GraphicsContext gc) {
 		Paint original = gc.getFill();
-		gc.setFill(Color.BLACK);
+		gc.setFill(Color.RED);
 		gc.fillRect(position[0] * TILE_WIDTH, position[1] * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		gc.setFill(original);
 	}

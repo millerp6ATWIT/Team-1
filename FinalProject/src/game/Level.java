@@ -1,11 +1,14 @@
 package game;
 
 import java.util.ArrayList;
-
 import entity.Entity;
-
 import java.io.File;
 import javafx.scene.canvas.GraphicsContext;
+import java.util.Map;
+import java.util.HashMap;
+import entity.*;
+import item.*;
+import java.util.Arrays;
 
 public class Level {
 	private ArrayList<Entity> entities;
@@ -14,20 +17,65 @@ public class Level {
 		this.entities = entities;
 	}
 	
-	// given a position, returns an arraylist of entities at that position
-	public ArrayList<Entity> entitiesAt(int[] position) {
-		ArrayList<Entity> entities = new ArrayList<>();
+	public Level(String header, String leveldata) {
+		entities = new ArrayList<Entity>();
 		
-		return entities;
+		int posX, posY;
+		posX = posY = 0;
+			
+		String data, type;
+		for(char c: leveldata.toCharArray()) {
+			if(c == ' ') {
+				posX++;
+			} else if(c == '\r') {
+				
+			} else if(c == '\n') {
+				posX = 0;
+				posY++;
+			} else if(c == '\t') {
+				posX += 3;
+			} else {
+				data = Game.fileToString(new File(Game.DATA_DIR + Game.extractAttribute(header, Character.toString(c))));
+				type = Game.extractAttribute(data, "type");
+				
+				if(type.equals("actor")) {
+					Actor a = new Actor(data);
+					a.setPosition(new int[] {posX, posY});
+					entities.add(a);
+				} else if(type.equals("tile")) {
+					Tile t = new Tile(data);
+					t.setPosition(new int[] {posX, posY});
+					entities.add(t);
+				}
+				
+				posX++;
+			}
+		}
 	}
 	
-	// given a csv file, populate arraylist of entites
-	public void loadFile(File f) {
+	// given a position, returns an arraylist of entities at that position
+	public ArrayList<Entity> entitiesAt(int[] position) {
+		ArrayList<Entity> entitiesAt = new ArrayList<>();
 		
+		for(Entity e: entities) {
+			if(Arrays.equals(e.getPosition(), position))
+				entitiesAt.add(e);
+		}
+		
+		return entitiesAt;
 	}
 	
 	public void addEntity(Entity toAdd) {
 		entities.add(toAdd);
+	}
+	
+	public Actor getPlayer() {
+		for(Entity e: entities) {
+			if (e.getName().equals("Player")) {
+				return (Actor) e;
+			}
+		}
+		return null;
 	}
 	
 	public ArrayList<Entity> getEntities() {

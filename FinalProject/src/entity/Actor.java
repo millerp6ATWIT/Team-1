@@ -8,13 +8,16 @@ import item.Armor;
 import item.Equipable;
 import item.Item;
 import item.Weapon;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import turn.Turn;
 
 import java.util.HashMap;
 import java.io.File;
 
 public class Actor extends Entity {
-	public static String[] genericStats = {"HP", "DEF"};
+	public static String[] genericStats = {"HP", "DEF", "STR", "INT", "DEX"};
 	
 	private Map<String, Integer> stats;
 	private ArrayList<Item> inventory;
@@ -33,6 +36,13 @@ public class Actor extends Entity {
 		for(String attribute: genericStats) {
 			stats.put(attribute, Integer.parseInt(Game.extractAttribute(entityData, attribute)));
 		}
+	}
+	
+	public void render(GraphicsContext gc) {
+		Paint original = gc.getFill();
+		gc.setFill(Color.BLUE);
+		gc.fillRect(position[0] * TILE_WIDTH, position[1] * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		gc.setFill(original);
 	}
 	
 	public ArrayList<Item> getInventory() {
