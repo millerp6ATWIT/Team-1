@@ -8,13 +8,14 @@ import game.Level;
 public class TurnMove extends Turn {
 	private int[] destination;
 	
-	public TurnMove(int[] endPos) {
+	public TurnMove(int[] endPos, Actor target) {
 		destination = endPos;
+		this.target = target;
 	}
 	
 	// set position of actor to destination
-	public void execute(Actor a) {
-		a.setPosition(destination);
+	public void execute() {
+		target.setPosition(destination);
 	}
 	
 	// returns a boolean on if a move is legal

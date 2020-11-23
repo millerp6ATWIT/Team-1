@@ -26,15 +26,22 @@ import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
 import turn.*;
+import javafx.scene.text.*;
+import javafx.geometry.Pos;
 
 public class Game extends Application {
-	final int WINDOW_HEIGHT = 256;
-	final int WINDOW_WIDTH = 512;
-	Level level = new Level(new ArrayList<Entity>());
-	public Actor player;
+	final int WINDOW_HEIGHT = 512;
+	final int WINDOW_WIDTH = 1024;
+	
+	Level level;
+	Actor player;
+	int turn = 0;
 	
 	public void init() {
-		
+		level = new Level(new ArrayList<Entity>());
+		player = new Actor(fileToString(new File("data\\entitydata\\actors\\testenemy.txt")));
+		player.setPosition(new int[] {0, 0});
+		level.addEntity(player);
 	}
 	
 	public void stop() {
@@ -49,10 +56,12 @@ public class Game extends Application {
 		}
 	}
 	
-	public void renderEntities(GraphicsContext g) {
+	public void renderScreen(GraphicsContext gc) {
+		gc.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		for(Entity e: level.getEntities()) {
-			e.render(g);
+			e.render(gc);
 		}
+		
 	}
 	
 	public static String extractAttribute(String data, String attribute) {
@@ -61,53 +70,62 @@ public class Game extends Application {
 		return(data.substring(indexStart, indexEnd));
 	}
 	
+	public void processTurns() {
+		for(Entity e: level.getEntities()) {
+			if(e instanceof Actor) {
+				Actor a = (Actor) e;
+				a.doTurn();
+			}
+		}
+		
+		turn++;
+	}
+	
 	public void handleInput(KeyCode k) {
 		if(k == KeyCode.W) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0];
 			destination[1] = player.getPosition()[1] - 1;
-			player.setPosition(destination);
+			player.setMyTurn(new TurnMove(destination, player));
 		} else if(k == KeyCode.A) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0] - 1;
 			destination[1] = player.getPosition()[1];
-			player.setPosition(destination);
+			player.setMyTurn(new TurnMove(destination, player));
 		} else if(k == KeyCode.S) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0];
 			destination[1] = player.getPosition()[1] + 1;
-			player.setPosition(destination);
+			player.setMyTurn(new TurnMove(destination, player));
 		} else if(k == KeyCode.D) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0] + 1;
 			destination[1] = player.getPosition()[1];
-			player.setPosition(destination);
+			player.setMyTurn(new TurnMove(destination, player));
 		}
-	}
-	
-	public Level initializeLevel() {
-		ArrayList<Entity> entities = new ArrayList<>();
-		player = new Actor(Game.fileToString(new File("data\\entitydata\\actors\\testenemy.txt")));
-		player.setPosition(new int[] {0, 0});
-		Level level = new Level(entities);
-		level.addEntity(player);
-		return level;
+		
+		if(player.getMyTurn() != null) {
+			processTurns();
+		}
 	}
 	
 	public void start(Stage stage) {
 		Group group = new Group();
 		Scene scene = new Scene(group, WINDOW_WIDTH, WINDOW_HEIGHT);
-		Canvas canvas = new Canvas();
-		canvas.setWidth(WINDOW_WIDTH);
-		canvas.setHeight(WINDOW_HEIGHT);
-		GraphicsContext g = canvas.getGraphicsContext2D();
+		Canvas canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		Text turnCounter = new Text();
 		
-		g.setFill(Color.BLACK);
+		turnCounter.setX(20);
+		turnCounter.setY(20);
+		turnCounter.setScaleX(2);
+		turnCounter.setScaleY(2);
 		
 		group.getChildren().add(canvas);
+		group.getChildren().add(turnCounter);
 		stage.setScene(scene);
-		
-		level = initializeLevel();
+		stage.show();
+		gc.setFill(Color.BLACK);
 		
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
@@ -115,15 +133,11 @@ public class Game extends Application {
 			}
 		});
 		
-		AnimationTimer timer = new AnimationTimer() {
-			public void handle(long currentTime) {
-				g.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-				renderEntities(g);
+		new AnimationTimer() {
+			public void handle(long now) {
+				turnCounter.setText("Turn " + Integer.toString(turn));
+				renderScreen(gc);
 			}
-		};
-		timer.start();
-		
-		stage.show();
+		}.start();
 	}
-
 }

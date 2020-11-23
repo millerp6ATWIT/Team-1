@@ -7,13 +7,14 @@ import java.util.ArrayList;
 public class TurnUse extends Turn {
 	private Item toUse;
 	
-	public TurnUse(Item itemToBeUsed) {
+	public TurnUse(Item itemToBeUsed, Actor target) {
 		toUse = itemToBeUsed;
+		this.target = target;
 	}
 	
 	// apply the effects of toUse to the specified actor
-	public void execute(Actor a) {
-		toUse.use(a);
+	public void execute() {
+		toUse.use(target);
 	}
 	
 	public boolean isLegal() {

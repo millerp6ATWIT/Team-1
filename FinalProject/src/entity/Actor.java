@@ -51,6 +51,11 @@ public class Actor extends Entity {
 		myTurn = newTurn;
 	}
 	
+	public void doTurn() {
+		myTurn.execute();
+		myTurn = null;
+	}
+	
 	public Map<String, Integer> getStats() {
 		return stats;
 	}
