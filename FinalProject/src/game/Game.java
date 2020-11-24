@@ -32,8 +32,10 @@ import javafx.scene.image.Image;
 import java.util.Comparator;
 
 public class Game extends Application {
-	final static int WINDOW_HEIGHT = 512;
+	final static int WINDOW_HEIGHT = 1024;
 	final static int WINDOW_WIDTH = 1024;
+	public static final int TILE_WIDTH = 16;
+	public static final int TILE_HEIGHT = 16;
 	
 	final static String SPRITESHEET_DIR = "data\\spritesheet.png";
 	
@@ -56,10 +58,12 @@ public class Game extends Application {
 	Level level;
 	Actor player;
 	int turn = 0;
+	double[] cameraPos;
 	
 	public void init() {
 		level = new Level(fileToString(new File(LEVEL_HEADER_DIR)), fileToString(new File("data\\leveldata\\level1.csv")));
 		player = level.getPlayer();
+		cameraPos = new double[2];
 	}
 	
 	public void stop() {
@@ -78,7 +82,7 @@ public class Game extends Application {
 		return extractAttribute(ALL_DEFS, toGet);
 	}
 	
-	public void renderScreen(GraphicsContext gc) {
+	public void renderScreen(GraphicsContext gc, double[] cameraPos) {
 		
 		level.getEntities().sort(new Comparator<Entity>() {
 			public int compare(Entity e1, Entity e2) {
@@ -87,8 +91,9 @@ public class Game extends Application {
 		});
 		
 		gc.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		
 		for(Entity e: level.getEntities()) {
-			e.render(gc);
+			e.render(gc, cameraPos);
 		}
 		
 	}
@@ -163,15 +168,10 @@ public class Game extends Application {
 		Scene scene = new Scene(group, WINDOW_WIDTH, WINDOW_HEIGHT);
 		Canvas canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		Text turnCounter = new Text();
 		
-		turnCounter.setX(20);
-		turnCounter.setY(WINDOW_HEIGHT - 20);
-		turnCounter.setScaleX(2);
-		turnCounter.setScaleY(2);
+		stage.setResizable(false);
 		
 		group.getChildren().add(canvas);
-		group.getChildren().add(turnCounter);
 		stage.setScene(scene);
 		stage.show();
 		gc.setFill(Color.BLACK);
@@ -184,8 +184,9 @@ public class Game extends Application {
 		
 		new AnimationTimer() {
 			public void handle(long now) {
-				turnCounter.setText("Turn " + Integer.toString(turn));
-				renderScreen(gc);
+				cameraPos[0] = (player.getPosition()[0] * TILE_WIDTH) - WINDOW_WIDTH / 2;
+				cameraPos[1] = (player.getPosition()[1] * TILE_HEIGHT) - WINDOW_HEIGHT / 2;
+				renderScreen(gc, cameraPos);
 			}
 		}.start();
 	}

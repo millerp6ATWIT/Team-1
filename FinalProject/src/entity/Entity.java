@@ -10,8 +10,6 @@ import javafx.scene.paint.Paint;
 import game.Sprite;
 
 public class Entity {
-	public static final int TILE_WIDTH = 16;
-	public static final int TILE_HEIGHT = 16;
 	protected int[] position;
 	protected String name;
 	protected Sprite sprite;
@@ -27,8 +25,10 @@ public class Entity {
 		sprite = new Sprite(Game.fileToString(new File(Game.getDef(Game.extractAttribute(entityData, "sprite")))));
 	}
 	
-	public void render(GraphicsContext gc) {
-		int[] screenPos = {position[0] * TILE_WIDTH, position[1] * TILE_HEIGHT};
+	public void render(GraphicsContext gc, double[] cameraPos) {
+		int[] screenPos = {position[0] * Game.TILE_WIDTH, position[1] * Game.TILE_HEIGHT};
+		screenPos[0] -= cameraPos[0];
+		screenPos[1] -= cameraPos[1];
 		sprite.render(gc, screenPos);
 	}
 	
