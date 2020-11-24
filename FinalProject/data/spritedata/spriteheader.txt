@@ -1,3 +1,4 @@
 playersprite:data\\spritedata\\playersprite.txt,
 wallsprite:data\\spritedata\\wallsprite.txt,
 floorsprite:data\\spritedata\\floorsprite.txt,
+testenemysprite:data\\spritedata\\testenemysprite.txt,

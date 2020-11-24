@@ -58,7 +58,7 @@ public class Game extends Application {
 	int turn = 0;
 	
 	public void init() {
-		level = new Level(fileToString(new File(LEVEL_HEADER_DIR)), fileToString(new File("data\\leveldata\\level1.txt")));
+		level = new Level(fileToString(new File(LEVEL_HEADER_DIR)), fileToString(new File("data\\leveldata\\level1.csv")));
 		player = level.getPlayer();
 	}
 	

@@ -20,36 +20,34 @@ public class Level {
 	public Level(String levelHeader, String leveldata) {
 		entities = new ArrayList<Entity>();
 		
+		String entityData, type;
 		int posX, posY;
 		posX = posY = 0;
-			
-		String data, type, symbolName;
 		for(char c: leveldata.toCharArray()) {
-			if(c == ' ') {
+			if(c == ',') {
 				posX++;
-			} else if(c == '\r') {
-				
 			} else if(c == '\n') {
 				posX = 0;
 				posY++;
-			} else if(c == '\t') {
-				posX += 3;
+			} else if(c == '\r') {
+				
 			} else {
-				symbolName = Game.extractAttribute(levelHeader, Character.toString(c));
-				data = Game.fileToString(new File(Game.getDef(symbolName)));
-				type = Game.extractAttribute(data, "type");
+				entityData = Game.fileToString(new File(Game.getDef(Game.extractAttribute(levelHeader, Character.toString(c)))));
+				type = Game.extractAttribute(entityData, "type");
 				
 				if(type.equals("actor")) {
-					Actor a = new Actor(data);
+					Actor a = new Actor(entityData);
 					a.setPosition(new int[] {posX, posY});
 					entities.add(a);
 				} else if(type.equals("tile")) {
-					Tile t = new Tile(data);
+					Tile t = new Tile(entityData);
 					t.setPosition(new int[] {posX, posY});
 					entities.add(t);
+				} else if(type.equals("container")) {
+					//Container c = new Container(entityData);
+					//c.setPosition(new int[] {posX, posY});
+					//entities.add(c);
 				}
-				
-				posX++;
 			}
 		}
 	}
