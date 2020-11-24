@@ -8,8 +8,8 @@ import game.Game;
 public class Tile extends Entity{
 	private boolean impassable;
 	
-	public Tile(boolean collision, int[] pos, String name) {
-		super(pos, name);
+	public Tile(boolean collision, int[] pos, String name, String sprite) {
+		super(pos, name, sprite);
 		impassable = collision;
 	}
 	
@@ -25,14 +25,6 @@ public class Tile extends Entity{
 	public boolean getImpassable() {
 		return impassable;
 	}
-	
-	public void render(GraphicsContext gc) {
-		Paint original = gc.getFill();
-		gc.setFill(Color.BLACK);
-		gc.fillRect(position[0] * TILE_WIDTH, position[1] * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-		gc.setFill(original);
-	}
-	
 }
 
 //A

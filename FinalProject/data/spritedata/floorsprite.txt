@@ -1,0 +1,5 @@
+x:32,
+y:0,
+h:16,
+w:16,
+renderpriority:1,

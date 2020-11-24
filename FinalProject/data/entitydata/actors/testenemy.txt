@@ -1,5 +1,6 @@
 type:actor,
 name:Test Enemy,
+sprite:playersprite,
 HP:10,
 DEF:0,
 STR:0,
