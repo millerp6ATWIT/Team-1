@@ -1,0 +1,2 @@
+player:data\\entitydata\\actors\\player.txt,
+testenemy:data\\entitydata\\actors\\testenemy.txt,

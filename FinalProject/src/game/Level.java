@@ -17,13 +17,13 @@ public class Level {
 		this.entities = entities;
 	}
 	
-	public Level(String header, String leveldata) {
+	public Level(String levelHeader, String leveldata) {
 		entities = new ArrayList<Entity>();
 		
 		int posX, posY;
 		posX = posY = 0;
 			
-		String data, type;
+		String data, type, symbolName;
 		for(char c: leveldata.toCharArray()) {
 			if(c == ' ') {
 				posX++;
@@ -35,7 +35,8 @@ public class Level {
 			} else if(c == '\t') {
 				posX += 3;
 			} else {
-				data = Game.fileToString(new File(Game.DATA_DIR + Game.extractAttribute(header, Character.toString(c))));
+				symbolName = Game.extractAttribute(levelHeader, Character.toString(c));
+				data = Game.fileToString(new File(Game.getDef(symbolName)));
 				type = Game.extractAttribute(data, "type");
 				
 				if(type.equals("actor")) {

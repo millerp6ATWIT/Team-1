@@ -32,14 +32,25 @@ import javafx.geometry.Pos;
 public class Game extends Application {
 	final static int WINDOW_HEIGHT = 512;
 	final static int WINDOW_WIDTH = 1024;
-	final static String DATA_DIR = "data\\";
+	
+	final static String WEAPON_HEADER_DIR = "data\\itemdata\\weapons\\weaponheader.txt";
+	final static String ARMOR_HEADER_DIR = "data\\itemdata\\armor\\armorheader.txt";
+	final static String ACTOR_HEADER_DIR = "data\\entitydata\\actors\\actorheader.txt";
+	final static String TILE_HEADER_DIR = "data\\entitydata\\tiledata\\tileheader.txt";
+	final static String LEVEL_HEADER_DIR = "data\\leveldata\\levelheader.txt";
+	
+	final static String WEAPON_DEFS = fileToString(new File(WEAPON_HEADER_DIR));
+	final static String ARMOR_DEFS = fileToString(new File(ARMOR_HEADER_DIR));
+	final static String ACTOR_DEFS = fileToString(new File(ACTOR_HEADER_DIR));
+	final static String TILE_DEFS = fileToString(new File(TILE_HEADER_DIR));
+	final static String ALL_DEFS = WEAPON_DEFS + ARMOR_DEFS + ACTOR_DEFS + TILE_DEFS;
 	
 	Level level;
 	Actor player;
 	int turn = 0;
 	
 	public void init() {
-		level = new Level(fileToString(new File("data\\leveldata\\header.txt")), fileToString(new File("data\\leveldata\\level1.txt")));
+		level = new Level(fileToString(new File(LEVEL_HEADER_DIR)), fileToString(new File("data\\leveldata\\level1.txt")));
 		player = level.getPlayer();
 	}
 	
@@ -55,6 +66,10 @@ public class Game extends Application {
 		}
 	}
 	
+	public static String getDef(String toGet) {
+		return extractAttribute(ALL_DEFS, toGet);
+	}
+	
 	public void renderScreen(GraphicsContext gc) {
 		gc.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		for(Entity e: level.getEntities()) {
@@ -64,9 +79,12 @@ public class Game extends Application {
 	}
 	
 	public static String extractAttribute(String data, String attribute) {
-		int indexStart = data.indexOf(attribute + ":") + attribute.length() + 1;
-		int indexEnd = data.indexOf(",", indexStart);
-		return(data.substring(indexStart, indexEnd));
+		if (data.contains(attribute)) {
+			int indexStart = data.indexOf(attribute + ":") + attribute.length() + 1;
+			int indexEnd = data.indexOf(",", indexStart);
+			return(data.substring(indexStart, indexEnd));
+		}
+		return null;
 	}
 	
 	public void processTurns() {

@@ -1,0 +1,1 @@
+testweapon:data\\itemdata\\weapon\\testweapon.txt;

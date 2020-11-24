@@ -1,0 +1,4 @@
+E:testenemy,
+W:wall,
+P:player,
+.:floor,

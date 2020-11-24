@@ -1,0 +1,2 @@
+floor:data\\entitydata\\tiledata\\floor.txt,
+wall:data\\entitydata\\tiledata\\wall.txt,

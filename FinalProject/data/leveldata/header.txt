@@ -1,4 +1,0 @@
-E:entitydata\\actors\\testenemy.txt,
-W:entitydata\\tiledata\\wall.txt,
-P:entitydata\\actors\\player.txt,
-.:entitydata\\tiledata\\floor.txt,
