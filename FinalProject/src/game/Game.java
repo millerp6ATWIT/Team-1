@@ -1,6 +1,11 @@
 package game;
 
+import javafx.scene.layout.*;
+import javafx.scene.control.ScrollPane;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import java.nio.file.Path;
+import java.awt.Panel;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -15,6 +20,8 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+
 import java.util.HashMap;
 import javafx.scene.canvas.Canvas;
 import javafx.event.EventHandler;
@@ -27,13 +34,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
 import turn.*;
 import javafx.scene.text.*;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import java.util.Comparator;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 
 public class Game extends Application {
-	final static int WINDOW_HEIGHT = 1024;
-	final static int WINDOW_WIDTH = 1024;
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
 	
@@ -90,7 +98,7 @@ public class Game extends Application {
 			}
 		});
 		
-		gc.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 		
 		for(Entity e: level.getEntities()) {
 			e.render(gc, cameraPos);
@@ -163,15 +171,61 @@ public class Game extends Application {
 		}
 	}
 	
+	public StackPane getUI(Rectangle2D sceneBounds, Canvas canvas) {
+		StackPane ui = new StackPane();
+		
+		BorderPane overlay = new BorderPane();
+		ScrollPane inventoryDisplay = new ScrollPane(new VBox());
+		FlowPane statsDisplay = new FlowPane();
+		
+		Text[] stats = {new Text("HP: "), new Text("DEF: "), new Text("STR: ")};
+		Color[] statsColors = {Color.RED, Color.BLUE, Color.YELLOW};
+		
+		for(int i = 0; i < stats.length; i++) {
+			if(i < statsColors.length) {
+				stats[i].setFill(statsColors[i]);
+			}
+			stats[i].setScaleX(1.5);
+			stats[i].setScaleY(1.5);
+		}
+		
+		overlay.setPadding(new Insets(10, 10, 10, 10));
+		statsDisplay.setAlignment(Pos.CENTER);
+		statsDisplay.setHgap(50);
+		
+		for(Text t: stats) {
+			StackPane s = new StackPane();
+			s.getChildren().add(new Rectangle(t.getText().length() * 8, 20, Color.GREY));
+			s.getChildren().add(t);
+			statsDisplay.getChildren().add(s);
+		}
+		
+		canvas.setWidth(sceneBounds.getWidth());
+		canvas.setHeight(sceneBounds.getHeight());
+		inventoryDisplay.setPrefWidth(sceneBounds.getWidth() / 6);
+		
+		overlay.setRight(inventoryDisplay);
+		overlay.setBottom(statsDisplay);
+		
+		ui.getChildren().add(canvas);
+		ui.getChildren().add(overlay);
+		
+		return ui;
+	}
+	
 	public void start(Stage stage) {
+		Rectangle2D screen = Screen.getPrimary().getBounds();
+		Rectangle2D sceneBounds = new Rectangle2D(0, 0, screen.getWidth() / 2, screen.getHeight() / 2);
+		
 		Group group = new Group();
-		Scene scene = new Scene(group, WINDOW_WIDTH, WINDOW_HEIGHT);
-		Canvas canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
+		Scene scene = new Scene(group, sceneBounds.getWidth(), sceneBounds.getHeight());
+		Canvas canvas = new Canvas();
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
-		stage.setResizable(false);
-		
 		group.getChildren().add(canvas);
+		group.getChildren().add(getUI(sceneBounds, canvas));
+		
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
 		gc.setFill(Color.BLACK);
@@ -184,8 +238,8 @@ public class Game extends Application {
 		
 		new AnimationTimer() {
 			public void handle(long now) {
-				cameraPos[0] = (player.getPosition()[0] * TILE_WIDTH) - WINDOW_WIDTH / 2;
-				cameraPos[1] = (player.getPosition()[1] * TILE_HEIGHT) - WINDOW_HEIGHT / 2;
+				cameraPos[0] = (player.getPosition()[0] * TILE_WIDTH) - canvas.getWidth() / 2;
+				cameraPos[1] = (player.getPosition()[1] * TILE_HEIGHT) - canvas.getHeight() / 2;
 				renderScreen(gc, cameraPos);
 			}
 		}.start();

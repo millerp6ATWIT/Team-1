@@ -26,10 +26,14 @@ public class Entity {
 	}
 	
 	public void render(GraphicsContext gc, double[] cameraPos) {
-		int[] screenPos = {position[0] * Game.TILE_WIDTH, position[1] * Game.TILE_HEIGHT};
+		double[] screenPos = getScreenPosition();
 		screenPos[0] -= cameraPos[0];
 		screenPos[1] -= cameraPos[1];
 		sprite.render(gc, screenPos);
+	}
+	
+	public double[] getScreenPosition() {
+		return new double[] {position[0] * Game.TILE_WIDTH, position[1] * Game.TILE_HEIGHT};
 	}
 	
 	public int[] getPosition() {

@@ -30,7 +30,7 @@ public class Sprite {
 		return renderPriority;
 	}
 	
-	public void render(GraphicsContext cg, int[] screenPos) {
+	public void render(GraphicsContext cg, double[] screenPos) {
 		cg.drawImage(Game.spritesheet, spriteBounds[0], spriteBounds[1], spriteBounds[2], spriteBounds[3], screenPos[0], screenPos[1], spriteBounds[2], spriteBounds[3]);
 	}
 }
