@@ -8,6 +8,7 @@ import item.Armor;
 import item.Equipable;
 import item.Item;
 import item.Weapon;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
