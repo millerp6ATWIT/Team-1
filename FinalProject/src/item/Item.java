@@ -29,6 +29,14 @@ public abstract class Item {
 		return owner;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	// apply the effects of the item to the entity
 	public abstract void use(Entity e);
 	

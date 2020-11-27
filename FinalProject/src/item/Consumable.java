@@ -24,11 +24,15 @@ public class Consumable extends Item {
 	}
 	
 	public void use(Entity e) {
+		if(owner instanceof Actor) {
+			Actor a = (Actor) owner;
+			use(a);
+		}
 	}
 	
 	public void use(Actor a) {
 		Map<String, Integer> targetStats = a.getStats();
-		targetStats.put(targetStat, targetStats.get(targetStat) - value);
+		targetStats.put(targetStat, targetStats.get(targetStat) + value);
 	}
 	
 }

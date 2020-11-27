@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import entity.Actor;
+import item.Consumable;
 import item.Item;
 import item.Weapon;
 import turn.TurnUse;
@@ -68,6 +69,7 @@ public class Game extends Application {
 	
 	Level level;
 	Actor player;
+	UI ui;
 	int turn = 0;
 	double[] cameraPos;
 	
@@ -75,6 +77,10 @@ public class Game extends Application {
 		level = new Level(fileToString(new File(LEVEL_HEADER_DIR)), fileToString(new File("data\\leveldata\\level1.csv")));
 		player = level.getPlayer();
 		cameraPos = new double[2];
+		
+		Consumable c = new Consumable(10, "HP", false, player);
+		c.setName("Test Item");
+		player.getInventory().add(c);
 	}
 	
 	public void stop() {
@@ -94,6 +100,10 @@ public class Game extends Application {
 	}
 	
 	public void renderScreen(GraphicsContext gc, double[] cameraPos) {
+		
+		ui.updatePlayerDEF(player.getStats().get("DEF"));
+		ui.updatePlayerHP(player.getStats().get("HP"));
+		ui.updatePlayerSTR(player.getStats().get("STR"));
 		
 		level.getEntities().sort(new Comparator<Entity>() {
 			public int compare(Entity e1, Entity e2) {
@@ -180,7 +190,7 @@ public class Game extends Application {
 		
 		Group group = new Group();
 		Scene scene = new Scene(group, sceneBounds.getWidth(), sceneBounds.getHeight());
-		UI ui = new UI(sceneBounds, player);
+		ui = new UI(sceneBounds, player);
 		GraphicsContext gc = ui.getCanvas().getGraphicsContext2D();
 		
 		group.getChildren().add(ui.getOverlay());
@@ -189,6 +199,8 @@ public class Game extends Application {
 		stage.setScene(scene);
 		stage.show();
 		gc.setFill(Color.BLACK);
+		
+		ui.updatePlayerInventory(player.getInventory());
 		
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
