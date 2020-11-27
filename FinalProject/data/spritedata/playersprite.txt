@@ -1,5 +1,5 @@
 x:0,
 y:0,
-h:16,
 w:16,
+h:16,
 renderpriority:3,

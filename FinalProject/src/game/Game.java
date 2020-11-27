@@ -2,6 +2,7 @@ package game;
 
 import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BlendMode;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import java.nio.file.Path;

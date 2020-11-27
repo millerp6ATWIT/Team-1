@@ -9,6 +9,7 @@ public class Sprite {
 	
 	public Sprite(int[] spriteBounds, int renderPriority) {
 		this.spriteBounds = spriteBounds;
+		this.renderPriority = renderPriority;
 	}
 	
 	public Sprite(String spritedata) {
@@ -16,8 +17,8 @@ public class Sprite {
 		
 		spriteBounds[0] = Integer.parseInt(Game.extractAttribute(spritedata, "x"));
 		spriteBounds[1] = Integer.parseInt(Game.extractAttribute(spritedata, "y"));
-		spriteBounds[2] = Integer.parseInt(Game.extractAttribute(spritedata, "h"));
-		spriteBounds[3] = Integer.parseInt(Game.extractAttribute(spritedata, "w"));
+		spriteBounds[2] = Integer.parseInt(Game.extractAttribute(spritedata, "w"));
+		spriteBounds[3] = Integer.parseInt(Game.extractAttribute(spritedata, "h"));
 		
 		renderPriority = Integer.parseInt(Game.extractAttribute(spritedata, "renderpriority"));
 	}
@@ -31,6 +32,6 @@ public class Sprite {
 	}
 	
 	public void render(GraphicsContext cg, double[] screenPos) {
-		cg.drawImage(Game.spritesheet, spriteBounds[0], spriteBounds[1], spriteBounds[2], spriteBounds[3], screenPos[0], screenPos[1], spriteBounds[2], spriteBounds[3]);
+		cg.drawImage(Game.spritesheet, spriteBounds[0], spriteBounds[1], spriteBounds[2], spriteBounds[3], screenPos[0], screenPos[1], Game.TILE_WIDTH, Game.TILE_HEIGHT);
 	}
 }
