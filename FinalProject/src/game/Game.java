@@ -186,7 +186,8 @@ public class Game extends Application {
 	}
 	
 	public void start(Stage stage) {
-		Rectangle2D screen = Screen.getPrimary().getBounds();
+		//Rectangle2D screen = Screen.getPrimary().getBounds();
+		Rectangle2D screen = new Rectangle2D(0, 0, 1280, 720);
 		Rectangle2D sceneBounds = new Rectangle2D(0, 0, screen.getWidth() / 2, screen.getHeight() / 2);
 		
 		Group group = new Group();

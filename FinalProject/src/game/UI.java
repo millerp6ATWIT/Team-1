@@ -37,22 +37,22 @@ public class UI {
 	private ScrollPane inventory;
 	
 	
-	public UI(Rectangle2D screenBounds, Actor player) {
+	public UI(Rectangle2D sceneBounds, Actor player) {
 		playerHP = new SimpleStringProperty("HP: ");
 		playerDEF = new SimpleStringProperty("DEF: ");
 		playerSTR = new SimpleStringProperty("STR: ");
 		
 		Text hp = new Text();
-		Text def = new Text();
-		Text str = new Text();
 		hp.textProperty().bind(playerHP);
 		hp.setScaleX(1.5);
 		hp.setScaleY(1.5);
 		hp.setFill(Color.RED);
+		Text def = new Text();
 		def.textProperty().bind(playerDEF);
 		def.setScaleX(1.5);
 		def.setScaleY(1.5);
 		def.setFill(Color.BLUE);
+		Text str = new Text();
 		str.textProperty().bind(playerSTR);
 		str.setScaleX(1.5);
 		str.setScaleY(1.5);
@@ -63,16 +63,16 @@ public class UI {
 		statDisplay = new FlowPane();
 		canvas = new Canvas();
 		inventory = new ScrollPane(new HBox());
-		background = new Background(new BackgroundFill(Color.GREY, new CornerRadii(0), new Insets(0, screenBounds.getWidth() / 4, 0, screenBounds.getWidth() / 4)));
+		background = new Background(new BackgroundFill(Color.GREY, new CornerRadii(0), new Insets(0, sceneBounds.getWidth() / 4, 0, sceneBounds.getWidth() / 4)));
 		
-		overlay.setPrefSize(screenBounds.getWidth(), screenBounds.getHeight());
-		canvas.setWidth(screenBounds.getWidth());
-		canvas.setHeight(screenBounds.getHeight());
+		overlay.setPrefSize(sceneBounds.getWidth(), sceneBounds.getHeight());
+		canvas.setWidth(sceneBounds.getWidth());
+		canvas.setHeight(sceneBounds.getHeight());
 		statDisplay.setPrefHeight(25);
 		statDisplay.setAlignment(Pos.CENTER);
 		statDisplay.setHgap(75);
 		statDisplay.setBackground(background);
-		inventory.setPrefWidth(screenBounds.getWidth() / 6);
+		inventory.setPrefWidth(sceneBounds.getWidth() / 6);
 		
 		statDisplay.getChildren().add(hp);
 		statDisplay.getChildren().add(def);
