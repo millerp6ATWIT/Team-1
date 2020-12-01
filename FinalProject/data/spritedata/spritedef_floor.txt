@@ -1,0 +1,4 @@
+imagedir:assets\\sprites\\floor.png,
+renderpriority:0,
+h:1,
+w:1,

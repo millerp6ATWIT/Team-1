@@ -1,4 +1,4 @@
 type:tile,
 name:Stone Wall,
-sprite:wallsprite,
+sprite:sprite_wall,
 impassable:true,

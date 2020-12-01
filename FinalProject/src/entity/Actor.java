@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.io.File;
 
 public class Actor extends Entity {
-	public static String[] genericStats = {"HP", "DEF", "STR", "INT", "DEX"};
+	public static String[] genericStats = {"HP", "DEF", "STR"};
 	
 	private Map<String, Integer> stats;
 	private ArrayList<Item> inventory;

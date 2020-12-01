@@ -61,13 +61,11 @@ public class UI {
 		display = new StackPane();
 		overlay = new BorderPane();
 		statDisplay = new FlowPane();
-		canvas = new Canvas();
+		canvas = new Canvas(sceneBounds.getWidth(), sceneBounds.getHeight());
 		inventory = new ScrollPane(new HBox());
 		background = new Background(new BackgroundFill(Color.GREY, new CornerRadii(0), new Insets(0, sceneBounds.getWidth() / 4, 0, sceneBounds.getWidth() / 4)));
 		
 		overlay.setPrefSize(sceneBounds.getWidth(), sceneBounds.getHeight());
-		canvas.setWidth(sceneBounds.getWidth());
-		canvas.setHeight(sceneBounds.getHeight());
 		statDisplay.setPrefHeight(25);
 		statDisplay.setAlignment(Pos.CENTER);
 		statDisplay.setHgap(75);
@@ -81,7 +79,7 @@ public class UI {
 		
 		overlay.setBottom(statDisplay);
 		overlay.setRight(inventory);
-		overlay.setPadding(new Insets(10, 10, 10, 10));
+		overlay.setPadding(new Insets(sceneBounds.getWidth() / 50, sceneBounds.getWidth() / 50, sceneBounds.getWidth() / 50, sceneBounds.getWidth() / 50));
 		display.getChildren().add(canvas);
 		display.getChildren().add(overlay);
 	}

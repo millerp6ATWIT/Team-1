@@ -1,30 +1,32 @@
 package game;
 
+import java.io.File;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Sprite {
-	private int spriteBounds[];
 	private int renderPriority;
+	private Image image;
+	private double[] dims;
 	
-	public Sprite(int[] spriteBounds, int renderPriority) {
-		this.spriteBounds = spriteBounds;
+	public Sprite(int renderPriority, Image image, double[] dims) {
 		this.renderPriority = renderPriority;
+		this.image = image;
+		this.dims = dims;
 	}
 	
 	public Sprite(String spritedata) {
-		spriteBounds = new int[4];
-		
-		spriteBounds[0] = Integer.parseInt(Game.extractAttribute(spritedata, "x"));
-		spriteBounds[1] = Integer.parseInt(Game.extractAttribute(spritedata, "y"));
-		spriteBounds[2] = Integer.parseInt(Game.extractAttribute(spritedata, "w"));
-		spriteBounds[3] = Integer.parseInt(Game.extractAttribute(spritedata, "h"));
+		this.dims = new double[2];
 		
 		renderPriority = Integer.parseInt(Game.extractAttribute(spritedata, "renderpriority"));
+		image = new Image(new File(Game.extractAttribute(spritedata, "imagedir")).toURI().toString());
+		dims[0] = Integer.parseInt(Game.extractAttribute(spritedata, "h"));
+		dims[1] = Integer.parseInt(Game.extractAttribute(spritedata, "w"));
 	}
 	
-	public int[] getBounds() {
-		return spriteBounds;
+	public double[] getDims() {
+		return dims;
 	}
 	
 	public int getRenderPriority() {
@@ -32,6 +34,6 @@ public class Sprite {
 	}
 	
 	public void render(GraphicsContext cg, double[] screenPos) {
-		cg.drawImage(Game.spritesheet, spriteBounds[0], spriteBounds[1], spriteBounds[2], spriteBounds[3], screenPos[0], screenPos[1], Game.TILE_WIDTH, Game.TILE_HEIGHT);
+		cg.drawImage(image, screenPos[0], screenPos[1], dims[0] * Game.TILE_WIDTH, dims[1] * Game.TILE_WIDTH);
 	}
 }

@@ -1,4 +1,4 @@
 type:tile,
 name:Stone Floor,
-sprite:floorsprite,
+sprite:sprite_floor,
 impassable:false,
