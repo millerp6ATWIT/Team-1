@@ -4,6 +4,7 @@ import java.util.Map;
 
 import entity.Actor;
 import entity.Entity;
+import game.Game;
 
 public class Armor extends Equipable {
 	private int protection;
@@ -12,6 +13,12 @@ public class Armor extends Equipable {
 		super(inInven, owner);
 		this.protection = protection;
 	}
+	
+	public Armor(String itemData) {
+		super(itemData);
+		protection = Integer.parseInt(Game.extractAttribute(itemData, "protection"));
+	}
+	
 	
 	public int getProtection() {
 		return protection;
