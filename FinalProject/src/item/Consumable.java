@@ -4,6 +4,7 @@ import java.util.Map;
 
 import entity.Actor;
 import entity.Entity;
+import game.Game;
 
 public class Consumable extends Item {
 	private int value;
@@ -13,6 +14,12 @@ public class Consumable extends Item {
 		super(inInven, owner);
 		value = mag;
 		targetStat = stat;
+	}
+	
+	public Consumable(String itemData) {
+		super(itemData);
+		value = Integer.parseInt(Game.extractAttribute(itemData, "value"));
+		targetStat = Game.extractAttribute(itemData, "targetStat");
 	}
 	
 	public int getValue() {
