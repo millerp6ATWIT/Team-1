@@ -3,7 +3,7 @@ package entity;
 import java.util.ArrayList;
 import item.*;
 import game.Game;
-//comment
+
 public class Container extends Entity{
 	final static int NUM_ITEMS_CAN_HOLD = 10;
 	private ArrayList<Item> inventory;
