@@ -81,4 +81,17 @@ public class Level {
 		return entities;
 	}
 	
+	public boolean isImpassable(int[] position) {
+		for(Entity e: entitiesAt(position)) {
+			if(e instanceof Tile) {
+				Tile t = (Tile) e;
+				if(t.getImpassable()) {
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
 }

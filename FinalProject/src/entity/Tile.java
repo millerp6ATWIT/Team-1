@@ -26,5 +26,3 @@ public class Tile extends Entity{
 		return impassable;
 	}
 }
-
-//A

@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import turn.Turn;
 import game.Sprite;
+import game.Level;
+import turn.TurnMove;
 
 import java.util.HashMap;
 import java.io.File;
@@ -44,7 +46,7 @@ public class Actor extends Entity {
 		return inventory;
 	}
 	
-	public void setInventory(ArrayList<Item> newInven ){
+	public void setInventory(ArrayList<Item> newInven ) {
 		inventory = newInven;
 	}
 	
@@ -91,6 +93,49 @@ public class Actor extends Entity {
 			}
 		}
 		return null;
+	}
+	
+	public void pickUp(Level level) {
+		ArrayList<Entity> entitiesHere = level.entitiesAt(position);
+		
+		for(Entity e: entitiesHere) {
+			if(e instanceof Container) {
+				Container c = (Container) e;
+				for(Item i: c.getInventory()) {
+					inventory.add(i);
+				}
+				level.getEntities().remove(e);
+			}
+		}
+	}
+	
+	public Turn getEnemyTurn(Level level) {
+		int[] playerPos = level.getPlayer().getPosition();
+		int[][] possibleDestinations = {
+			{position[0] + 1, position[1]},
+			{position[0] - 1, position[1]},
+			{position[0], position[1] + 1},
+			{position[0], position[1] - 1},
+			{position[0] + 1, position[1] + 1},
+			{position[0] - 1, position[1] + 1},
+			{position[0] + 1, position[1] - 1},
+			{position[0] - 1, position[1] = 1},
+		};
+		
+		double minDistanceToPlayer = Integer.MAX_VALUE;
+		double distanceToPlayer;
+		int[] nearestPosToPlayer = position;
+		for(int[] possiblePosition: possibleDestinations) {
+			if(!level.isImpassable(possiblePosition)) {
+				distanceToPlayer = Math.sqrt(Math.pow(playerPos[1] - possiblePosition[1], 2) + Math.pow(playerPos[0] - possiblePosition[0], 2));
+				if(distanceToPlayer < minDistanceToPlayer) {
+					minDistanceToPlayer = distanceToPlayer;
+					nearestPosToPlayer = possiblePosition;
+				}
+			}
+		}
+		
+		return new TurnMove(nearestPosToPlayer, this);
 	}
 	
 }
