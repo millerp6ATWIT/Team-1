@@ -1,0 +1,4 @@
+imagedir:assets\\sprites\\wizard.png,
+renderpriority:2,
+h:1,
+w:1,
