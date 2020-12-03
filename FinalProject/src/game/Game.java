@@ -54,6 +54,7 @@ public class Game extends Application {
 	final static String ARMOR_HEADER_DIR = "data\\itemdata\\armor\\armorheader.txt";
 	final static String ACTOR_HEADER_DIR = "data\\entitydata\\actors\\actorheader.txt";
 	final static String TILE_HEADER_DIR = "data\\entitydata\\tiledata\\tileheader.txt";
+	final static String CONTAINER_HEADER_DIR = "data\\entitydata\\containerdata\\containerheader.txt";
 	final static String SPRITE_HEADER_DIR = "data\\spritedata\\spriteheader.txt";
 	final static String LEVEL_HEADER_DIR = "data\\leveldata\\levelheader.txt";
 	
@@ -61,8 +62,9 @@ public class Game extends Application {
 	final static String ARMOR_DEFS = fileToString(new File(ARMOR_HEADER_DIR));
 	final static String ACTOR_DEFS = fileToString(new File(ACTOR_HEADER_DIR));
 	final static String TILE_DEFS = fileToString(new File(TILE_HEADER_DIR));
+	final static String CONTAINER_DEFS = fileToString(new File(CONTAINER_HEADER_DIR));
 	final static String SPRITE_DEFS = fileToString(new File(SPRITE_HEADER_DIR));
-	final static String ALL_DEFS = WEAPON_DEFS + ARMOR_DEFS + ACTOR_DEFS + TILE_DEFS + SPRITE_DEFS;
+	final static String ALL_DEFS = WEAPON_DEFS + ARMOR_DEFS + ACTOR_DEFS + TILE_DEFS + SPRITE_DEFS + CONTAINER_DEFS;
 	
 	final static Image spritesheet = new Image(new File(SPRITESHEET_DIR).toURI().toString());
 	

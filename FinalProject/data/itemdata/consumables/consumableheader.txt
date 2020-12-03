@@ -1,0 +1,1 @@
+item_strpotion:data\\itemdata\\consumables\\itemdef_strpotion.txt,

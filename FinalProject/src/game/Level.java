@@ -44,9 +44,9 @@ public class Level {
 					t.setPosition(new int[] {posX, posY});
 					entities.add(t);
 				} else if(type.equals("container")) {
-					//Container c = new Container(entityData);
-					//c.setPosition(new int[] {posX, posY});
-					//entities.add(c);
+					Container con = new Container(entityData);
+					con.setPosition(new int[] {posX, posY});
+					entities.add(con);
 				}
 			}
 		}
