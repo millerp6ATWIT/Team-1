@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 import game.Game;
@@ -16,6 +17,7 @@ import turn.Turn;
 import game.Sprite;
 import game.Level;
 import turn.TurnMove;
+import turn.TurnUse;
 
 import java.util.HashMap;
 import java.io.File;
@@ -81,6 +83,11 @@ public class Actor extends Entity {
 		return null;
 	}
 	
+	public double getDistanceFrom(int[] position) {
+		double distance = Math.sqrt(Math.pow(position[1] - this.position[1], 2) + Math.pow(position[0] - this.position[0], 2));
+		return distance;
+	}
+	
 	public Weapon getEquippedWeapon() {
 		for(Item i: inventory) {
 			if(i instanceof Equipable) {
@@ -92,7 +99,8 @@ public class Actor extends Entity {
 				}
 			}
 		}
-		return null;
+		
+		return new Weapon(0, false, this);
 	}
 	
 	public void pickUp(Level level) {
@@ -110,7 +118,7 @@ public class Actor extends Entity {
 	}
 	
 	public Turn getEnemyTurn(Level level) {
-		int[] playerPos = level.getPlayer().getPosition();
+		Actor player = level.getPlayer();
 		int[][] possibleDestinations = {
 			{position[0] + 1, position[1]},
 			{position[0] - 1, position[1]},
@@ -119,7 +127,7 @@ public class Actor extends Entity {
 			{position[0] + 1, position[1] + 1},
 			{position[0] - 1, position[1] + 1},
 			{position[0] + 1, position[1] - 1},
-			{position[0] - 1, position[1] = 1},
+			{position[0] - 1, position[1] - 1},
 		};
 		
 		double minDistanceToPlayer = Integer.MAX_VALUE;
@@ -127,7 +135,7 @@ public class Actor extends Entity {
 		int[] nearestPosToPlayer = position;
 		for(int[] possiblePosition: possibleDestinations) {
 			if(!level.isImpassable(possiblePosition)) {
-				distanceToPlayer = Math.sqrt(Math.pow(playerPos[1] - possiblePosition[1], 2) + Math.pow(playerPos[0] - possiblePosition[0], 2));
+				distanceToPlayer = player.getDistanceFrom(possiblePosition);
 				if(distanceToPlayer < minDistanceToPlayer) {
 					minDistanceToPlayer = distanceToPlayer;
 					nearestPosToPlayer = possiblePosition;
@@ -135,7 +143,11 @@ public class Actor extends Entity {
 			}
 		}
 		
-		return new TurnMove(nearestPosToPlayer, this);
+		if(Arrays.equals(player.getPosition(), nearestPosToPlayer)) {
+			return new TurnUse(getEquippedWeapon(), player);
+		} else {
+			return new TurnMove(nearestPosToPlayer, this);
+		}
 	}
 	
 }

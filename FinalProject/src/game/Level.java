@@ -86,12 +86,12 @@ public class Level {
 			if(e instanceof Tile) {
 				Tile t = (Tile) e;
 				if(t.getImpassable()) {
-					return false;
+					return true;
 				}
 			}
 		}
 		
-		return true;
+		return false;
 	}
 	
 }

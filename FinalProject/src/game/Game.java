@@ -19,6 +19,7 @@ import item.Weapon;
 import turn.TurnUse;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
@@ -104,7 +105,7 @@ public class Game extends Application {
 		
 		ui.updatePlayerDEF(player.getStats().get("DEF"));
 		ui.updatePlayerHP(player.getStats().get("HP"));
-		ui.updatePlayerSTR(player.getStats().get("STR"));
+		ui.updatePlayerATK(player.getStats().get("STR") + player.getEquippedWeapon().getDamage());
 		
 		level.getEntities().sort(new Comparator<Entity>() {
 			public int compare(Entity e1, Entity e2) {
@@ -135,8 +136,27 @@ public class Game extends Application {
 		for(Entity e: level.getEntities()) {
 			if(e instanceof Actor && e != player) {
 				Actor a = (Actor) e;
-				a.setMyTurn(new TurnPass());
+				
+				if(a.getDistanceFrom(player.getPosition()) < 10) {
+					a.setMyTurn(a.getEnemyTurn(level));
+				} else {
+					a.setMyTurn(new TurnPass());
+				}
+				
 				a.doTurn();
+			}
+		}
+		
+		for(Entity e: level.getEntities()) {
+			if(e instanceof Actor) {
+				Actor a = (Actor) e;
+				if(a.getStats().get("HP") < 1) {
+					if(a.equals(player)) {
+						Platform.exit();
+					} else {
+						level.getEntities().remove(a);
+					}
+				}
 			}
 		}
 		
@@ -186,8 +206,7 @@ public class Game extends Application {
 	}
 	
 	public void start(Stage stage) {
-		//Rectangle2D screen = Screen.getPrimary().getBounds();
-		Rectangle2D screen = new Rectangle2D(0, 0, 1919, 1080);
+		Rectangle2D screen = Screen.getPrimary().getBounds();
 		Rectangle2D sceneBounds = new Rectangle2D(0, 0, screen.getWidth() / 2, screen.getHeight() / 2);
 		
 		Group group = new Group();
