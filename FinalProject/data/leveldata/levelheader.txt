@@ -11,5 +11,5 @@ Q:snake;
 H:spider;
 D:str_potion,
 V:virus,
-W:wolf,
+l:wolf,
 w:wizard,
