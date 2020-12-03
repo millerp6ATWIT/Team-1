@@ -1,6 +1,5 @@
 package game;
 
-import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlendMode;
 import javafx.geometry.Rectangle2D;
@@ -11,7 +10,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Map;
-
 import entity.Actor;
 import item.Consumable;
 import item.Item;
@@ -25,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
 import java.util.HashMap;
 import javafx.scene.canvas.Canvas;
 import javafx.event.EventHandler;

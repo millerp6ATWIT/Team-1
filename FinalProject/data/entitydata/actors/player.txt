@@ -1,12 +1,6 @@
 type:actor,
 name:Player,
 sprite:sprite_player,
-<<<<<<< HEAD
 HP:100,
 DEF:5,
 STR:10,
-=======
-HP:10,
-DEF:0,
-STR:5,
->>>>>>> branch 'master' of https://github.com/millerp6ATWIT/group0.git
