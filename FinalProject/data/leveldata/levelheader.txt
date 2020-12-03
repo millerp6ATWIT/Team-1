@@ -7,8 +7,8 @@ A:armor,
 B:bat,
 F:fire,
 p:potion,
-Q:snake;
-H:spider;
+Q:snake,
+H:spider,
 D:str_potion,
 V:virus,
 l:wolf,
