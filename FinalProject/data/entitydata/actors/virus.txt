@@ -1,0 +1,6 @@
+type:actor,
+name:Virus,
+sprite:sprite_virus,
+HP:25,
+DEF:5,
+STR:10,

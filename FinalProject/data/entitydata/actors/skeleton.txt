@@ -1,0 +1,6 @@
+type:actor,
+name:Skeleton,
+sprite:sprite_skeleton,
+HP:50,
+DEF:15,
+STR:20,

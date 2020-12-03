@@ -1,0 +1,6 @@
+type:actor,
+name:Wizard,
+sprite:sprite_wizard,
+HP:80,
+DEF:20,
+STR:30,

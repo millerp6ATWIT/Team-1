@@ -1,0 +1,6 @@
+type:actor,
+name:Spider,
+sprite:sprite_spider,
+HP:50,
+DEF:15,
+STR:20,

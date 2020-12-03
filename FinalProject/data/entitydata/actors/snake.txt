@@ -1,0 +1,6 @@
+type:actor,
+name:Snake,
+sprite:sprite_snake,
+HP:25,
+DEF:5,
+STR:10,
