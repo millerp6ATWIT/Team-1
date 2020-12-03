@@ -29,7 +29,7 @@ import javafx.scene.text.Text;
 public class UI {
 	private SimpleStringProperty playerHP;
 	private SimpleStringProperty playerDEF;
-	private SimpleStringProperty playerSTR;
+	private SimpleStringProperty playerATK;
 	private StackPane display;
 	private BorderPane overlay;
 	private FlowPane statDisplay;
@@ -41,7 +41,7 @@ public class UI {
 	public UI(Rectangle2D sceneBounds, Actor player) {
 		playerHP = new SimpleStringProperty("HP: ");
 		playerDEF = new SimpleStringProperty("DEF: ");
-		playerSTR = new SimpleStringProperty("STR: ");
+		playerATK = new SimpleStringProperty("ATK: ");
 		
 		Text hp = new Text();
 		hp.textProperty().bind(playerHP);
@@ -54,7 +54,7 @@ public class UI {
 		def.setScaleY(1.5);
 		def.setFill(Color.BLUE);
 		Text str = new Text();
-		str.textProperty().bind(playerSTR);
+		str.textProperty().bind(playerATK);
 		str.setScaleX(1.5);
 		str.setScaleY(1.5);
 		str.setFill(Color.ORANGE);
@@ -101,8 +101,8 @@ public class UI {
 		this.playerDEF.set("DEF: " + Integer.toString(playerDEF));
 	}
 	
-	public void updatePlayerSTR(int playerSTR) {
-		this.playerSTR.set("STR: " + Integer.toString(playerSTR));
+	public void updatePlayerATK(int playerATK) {
+		this.playerATK.set("ATK: " + Integer.toString(playerATK));
 	}
 	
 	public void updatePlayerInventory(ArrayList<Item> inv) {
