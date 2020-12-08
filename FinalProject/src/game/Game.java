@@ -23,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import turn.*;
 import javafx.scene.image.Image;
 import java.util.Comparator;
+import item.*;
 
 public class Game extends Application {
 	public static final int TILE_WIDTH = 16;
@@ -168,15 +169,20 @@ public class Game extends Application {
 		Turn playerTurn = player.getMyTurn();
 		if(playerTurn != null) {
 			boolean isLegal;
+			boolean isEnemy = false;
 			if (playerTurn instanceof TurnMove) {
 				isLegal = ((TurnMove) playerTurn).isLegal(level);
+				isEnemy = ((TurnMove) playerTurn).isEnemy(level);
 			} else if(playerTurn instanceof TurnUse) {
 				isLegal = ((TurnUse) playerTurn).isLegal();
 			} else {
 				isLegal = true;
 			}
 			
-			if(isLegal) {
+			if(isEnemy) {
+				player.setMyTurn(new TurnUse(player.getEquippedWeapon(), ((TurnMove) playerTurn).getEnemyAt(level)));
+				processTurns();
+			}else if(isLegal) {
 				processTurns();
 			} else {
 				player.setMyTurn(null);
