@@ -31,4 +31,28 @@ public class TurnMove extends Turn {
 		}
 		return true;
 	}
+	
+	public boolean isEnemy(Level l) {
+		ArrayList<Entity> e = l.entitiesAt(destination);
+		for(int i = 0; i < e.size(); i++) {
+			if(e.get(i) instanceof Actor) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Actor getEnemyAt(Level l) {
+		ArrayList<Entity> e = l.entitiesAt(destination);
+		for(int i = 0; i < e.size(); i++) {
+			if(e.get(i) instanceof Actor) {
+				return (Actor)e.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public int[] getDestination() {
+		return destination;
+	}
 }
