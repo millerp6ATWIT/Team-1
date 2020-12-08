@@ -32,6 +32,7 @@ public class Sprite {
 			image = loadedImages.get(imageDir);
 		} else {
 			loadedImages.put(imageDir, new Image(new File(imageDir).toURI().toString()));
+			image = loadedImages.get(imageDir);
 		}
 	}
 	
