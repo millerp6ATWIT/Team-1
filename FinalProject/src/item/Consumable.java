@@ -40,6 +40,7 @@ public class Consumable extends Item {
 	public void use(Actor a) {
 		Map<String, Integer> targetStats = a.getStats();
 		targetStats.put(targetStat, targetStats.get(targetStat) + value);
+		((Actor) owner).getInventory().remove(this);
 	}
 	
 }

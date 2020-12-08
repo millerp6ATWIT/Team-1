@@ -62,7 +62,10 @@ public class Game extends Application {
 		
 		Consumable c = new Consumable(10, "HP", false, player);
 		c.setName("Test Item");
+		Weapon w = new Weapon(10, true, player);
+		w.setName("Test Weapon");
 		player.getInventory().add(c);
+		player.getInventory().add(w);
 	}
 	
 	public void stop() {
@@ -111,36 +114,39 @@ public class Game extends Application {
 	}
 	
 	public void processTurns() {
-		player.doTurn();
-		
-		for(Entity e: level.getEntities()) {
-			if(e instanceof Actor && e != player) {
-				Actor a = (Actor) e;
-				
-				if(a.getDistanceFrom(player.getPosition()) < 10) {
-					a.setMyTurn(a.getEnemyTurn(level));
-				} else {
-					a.setMyTurn(new TurnPass());
-				}
-				
-				a.doTurn();
-			}
-		}
-		
-		for(Entity e: level.getEntities()) {
-			if(e instanceof Actor) {
-				Actor a = (Actor) e;
-				if(a.getStats().get("HP") < 1) {
-					if(a.equals(player)) {
-						Platform.exit();
+		if(player.getMyTurn() != null) {
+			player.doTurn();
+			
+			for(Entity e: level.getEntities()) {
+				if(e instanceof Actor && e != player) {
+					Actor a = (Actor) e;
+					
+					if(a.getDistanceFrom(player.getPosition()) < 10) {
+						a.setMyTurn(a.getEnemyTurn(level));
 					} else {
-						level.getEntities().remove(a);
+						a.setMyTurn(new TurnPass());
+					}
+					
+					a.doTurn();
+				}
+			}
+			
+			for(Entity e: level.getEntities()) {
+				if(e instanceof Actor) {
+					Actor a = (Actor) e;
+					if(a.getStats().get("HP") < 1) {
+						if(a.equals(player)) {
+							Platform.exit();
+						} else {
+							level.getEntities().remove(a);
+						}
 					}
 				}
 			}
+			
+			ui.updatePlayerInventory(player.getInventory());
+			turn++;
 		}
-		
-		turn++;
 	}
 	
 	public void handleInput(KeyCode k) {
@@ -181,13 +187,11 @@ public class Game extends Application {
 			
 			if(isEnemy) {
 				player.setMyTurn(new TurnUse(player.getEquippedWeapon(), ((TurnMove) playerTurn).getEnemyAt(level)));
-				processTurns();
-			}else if(isLegal) {
-				processTurns();
-			} else {
+			}else if(!isLegal) {
 				player.setMyTurn(null);
 			}
 		}
+		
 	}
 	
 	public void start(Stage stage) {
@@ -216,6 +220,7 @@ public class Game extends Application {
 		
 		new AnimationTimer() {
 			public void handle(long now) {
+				processTurns();
 				cameraPos[0] = (player.getPosition()[0] * TILE_WIDTH) - ui.getCanvas().getWidth() / 2;
 				cameraPos[1] = (player.getPosition()[1] * TILE_HEIGHT) - ui.getCanvas().getHeight() / 2;
 				renderScreen(gc, cameraPos);
