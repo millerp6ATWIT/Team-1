@@ -4,8 +4,11 @@ import java.io.File;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import java.util.HashMap;
 
 public class Sprite {
+	static HashMap<String, Image> loadedImages = new HashMap<>();
+	
 	private int renderPriority;
 	private Image image;
 	private double[] dims;
@@ -20,9 +23,16 @@ public class Sprite {
 		this.dims = new double[2];
 		
 		renderPriority = Integer.parseInt(Game.extractAttribute(spritedata, "renderpriority"));
-		image = new Image(new File(Game.extractAttribute(spritedata, "imagedir")).toURI().toString());
 		dims[0] = Integer.parseInt(Game.extractAttribute(spritedata, "h"));
 		dims[1] = Integer.parseInt(Game.extractAttribute(spritedata, "w"));
+		
+		String imageDir = Game.extractAttribute(spritedata, "imagedir");
+		
+		if(loadedImages.containsKey(imageDir)) {
+			image = loadedImages.get(imageDir);
+		} else {
+			loadedImages.put(imageDir, new Image(new File(imageDir).toURI().toString()));
+		}
 	}
 	
 	public double[] getDims() {

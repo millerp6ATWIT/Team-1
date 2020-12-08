@@ -1,19 +1,12 @@
 package game;
 
-import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.BlendMode;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import java.nio.file.Path;
-import java.awt.Panel;
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Map;
 import entity.Actor;
 import item.Consumable;
-import item.Item;
-import item.Weapon;
 import turn.TurnUse;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -21,28 +14,15 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import java.util.HashMap;
-import javafx.scene.canvas.Canvas;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.WindowEvent;
 import entity.*;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
 import turn.*;
-import javafx.scene.text.*;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import java.util.Comparator;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.*;
 
 public class Game extends Application {
 	public static final int TILE_WIDTH = 16;
