@@ -1,3 +1,4 @@
+
 type:actor,
 name:Virus,
 sprite:sprite_virus,

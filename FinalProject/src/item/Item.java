@@ -15,6 +15,7 @@ public abstract class Item {
 	}
 	
 	public Item(String itemData) {
+		itemData = Game.processData(itemData);
 		name = Game.extractAttribute(itemData, "name");
 	}
 	
@@ -35,6 +36,10 @@ public abstract class Item {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setOwner(Actor owner) {
+		this.owner = owner;
 	}
 	
 	// apply the effects of the item to the entity

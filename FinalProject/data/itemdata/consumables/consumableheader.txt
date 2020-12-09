@@ -1,1 +1,3 @@
 item_strpotion:data\\itemdata\\consumables\\itemdef_strpotion.txt,
+item_defpotion:data\\itemdata\\consumables\\itemdef_defpotion.txt,
+item_hppotion:data\\itemdata\\consumables\\itemdef_hppotion.txt,

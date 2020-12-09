@@ -19,7 +19,7 @@ public class Consumable extends Item {
 	public Consumable(String itemData) {
 		super(itemData);
 		value = Integer.parseInt(Game.extractAttribute(itemData, "value"));
-		targetStat = Game.extractAttribute(itemData, "targetStat");
+		targetStat = Game.extractAttribute(itemData, "targetstat");
 	}
 	
 	public int getValue() {

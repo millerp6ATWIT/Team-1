@@ -20,6 +20,7 @@ public class Sprite {
 	}
 	
 	public Sprite(String spritedata) {
+		spritedata = Game.processData(spritedata);
 		this.dims = new double[2];
 		
 		renderPriority = Integer.parseInt(Game.extractAttribute(spritedata, "renderpriority"));
@@ -38,6 +39,10 @@ public class Sprite {
 	
 	public double[] getDims() {
 		return dims;
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 	
 	public int getRenderPriority() {

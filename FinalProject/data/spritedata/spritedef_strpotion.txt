@@ -1,4 +1,4 @@
-imagedir:assets\\sprites\\strength_potion.png,
-renderpriority:2,
+imagedir:assets\\sprites\\strpotion.png,
+renderpriority:1,
 h:1,
 w:1,

@@ -21,6 +21,7 @@ public class Entity {
 	}
 
 	public Entity(String entityData) {
+		entityData = Game.processData(entityData);
 		name = Game.extractAttribute(entityData, "name");
 		sprite = new Sprite(Game.fileToString(new File(Game.getDef(Game.extractAttribute(entityData, "sprite")))));
 	}

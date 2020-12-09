@@ -1,0 +1,4 @@
+imagedir:assets\\sprites\\hppotion.png,
+renderpriority:1,
+h:1,
+w:1,

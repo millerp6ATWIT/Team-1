@@ -1,3 +1,4 @@
+
 type:actor,
 name:Test Enemy,
 sprite:sprite_skeleton,

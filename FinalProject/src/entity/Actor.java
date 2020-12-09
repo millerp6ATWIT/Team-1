@@ -111,8 +111,9 @@ public class Actor extends Entity {
 				Container c = (Container) e;
 				for(Item i: c.getInventory()) {
 					inventory.add(i);
+					i.setOwner(this);
 				}
-				level.getEntities().remove(e);
+				c.getInventory().clear();
 			}
 		}
 	}

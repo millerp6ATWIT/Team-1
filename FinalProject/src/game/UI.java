@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 
 import entity.Actor;
+import item.Equipable;
 import item.Item;
+import item.Weapon;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -15,6 +17,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -119,6 +122,12 @@ public class UI {
 					player.setMyTurn(new TurnUse(i, player));
 				}
 			});
+			
+			if(i instanceof Equipable) {
+				if(((Equipable) i).getIsEquipped()) {
+					b.setText(b.getText() + " (Equipped)");
+				}
+			}
 			
 			((VBox) inventory.getContent()).getChildren().add(b);
 		}

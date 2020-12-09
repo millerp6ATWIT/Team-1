@@ -1,3 +1,4 @@
+
 type:actor,
 name:Bat,
 sprite:sprite_bat,
