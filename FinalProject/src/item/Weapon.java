@@ -41,7 +41,9 @@ public class Weapon extends Equipable {
 			}
 		} else {
 			Map<String, Integer> targetStats = a.getStats();
-			targetStats.put("HP", targetStats.get("HP") - damage - ((Actor) owner).getStats().get("STR"));
+			int totalDamage = (damage + ((Actor) owner).getStats().get("STR") - targetStats.get("DEF"));
+			totalDamage = totalDamage > 0? totalDamage: 0;
+			targetStats.put("HP", targetStats.get("HP") - totalDamage);
 		}
 	}
 	
