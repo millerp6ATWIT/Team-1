@@ -59,6 +59,10 @@ public class Game extends Application {
 	int turn = 0;
 	double[] cameraPos;
 	
+	public static void main(String[] args) {
+		
+	}
+	
 	public void init() {
 		level = new Level(fileToString(new File(LEVEL_HEADER_DIR)), fileToString(new File("data\\leveldata\\level1.csv")));
 		player = level.getPlayer();
@@ -187,7 +191,7 @@ public class Game extends Application {
 			destination[0] = player.getPosition()[0] - 1;
 			destination[1] = player.getPosition()[1];
 			player.setMyTurn(new TurnMove(destination, player));
-		} else if(k == KeyCode.S) {
+		} else if(k == KeyCode.X) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0];
 			destination[1] = player.getPosition()[1] + 1;
@@ -197,6 +201,28 @@ public class Game extends Application {
 			destination[0] = player.getPosition()[0] + 1;
 			destination[1] = player.getPosition()[1];
 			player.setMyTurn(new TurnMove(destination, player));
+		} else if(k == KeyCode.Q) {
+			int[] destination = new int[2];
+			destination[0] = player.getPosition()[0] - 1;
+			destination[1] = player.getPosition()[1] + 1;
+			player.setMyTurn(new TurnMove(destination, player));
+		} else if(k == KeyCode.E) {
+			int[] destination = new int[2];
+			destination[0] = player.getPosition()[0] + 1;
+			destination[1] = player.getPosition()[1] + 1;
+			player.setMyTurn(new TurnMove(destination, player));
+		} else if(k == KeyCode.Z) {
+			int[] destination = new int[2];
+			destination[0] = player.getPosition()[0] - 1;
+			destination[1] = player.getPosition()[1] - 1;
+			player.setMyTurn(new TurnMove(destination, player));
+		} else if(k == KeyCode.C) {
+			int[] destination = new int[2];
+			destination[0] = player.getPosition()[0] + 1;
+			destination[1] = player.getPosition()[1] - 1;
+			player.setMyTurn(new TurnMove(destination, player));
+		} else if(k == KeyCode.S) {
+			player.setMyTurn(new TurnPass());
 		}
 		
 		Turn playerTurn = player.getMyTurn();
