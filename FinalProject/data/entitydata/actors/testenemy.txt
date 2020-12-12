@@ -2,6 +2,6 @@
 type:actor,
 name:Test Enemy,
 sprite:sprite_skeleton,
-HP:10,
+HP:1,
 DEF:0,
 STR:1,

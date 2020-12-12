@@ -1,6 +1,6 @@
 type:actor,
 name:Fire,
 sprite:sprite_fire,
-HP:25,
+HP:5,
 DEF:5,
-STR:10,
+STR:1,

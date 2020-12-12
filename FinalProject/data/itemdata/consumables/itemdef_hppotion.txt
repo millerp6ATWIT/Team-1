@@ -1,4 +1,4 @@
 type:consumable,
 name:Health Potion,
-value:10,
+value:30,
 targetstat:HP,

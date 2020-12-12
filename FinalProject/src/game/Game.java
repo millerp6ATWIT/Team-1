@@ -60,7 +60,7 @@ public class Game extends Application {
 	double[] cameraPos;
 	
 	public static void main(String[] args) {
-		
+		Application.launch(args);
 	}
 	
 	public void init() {

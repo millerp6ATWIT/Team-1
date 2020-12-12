@@ -2,6 +2,6 @@
 type:actor,
 name:Virus,
 sprite:sprite_virus,
-HP:25,
-DEF:5,
+HP:15,
+DEF:10,
 STR:10,

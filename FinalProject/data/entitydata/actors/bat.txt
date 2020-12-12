@@ -1,7 +1,6 @@
-
 type:actor,
 name:Bat,
 sprite:sprite_bat,
-HP:25,
+HP:15,
 DEF:5,
-STR:10,
+STR:5,
