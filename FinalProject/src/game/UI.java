@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 
 import entity.Actor;
+import item.Equipable;
 import item.Item;
+import item.Weapon;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -15,16 +17,19 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import turn.TurnUse;
 
 public class UI {
 	private SimpleStringProperty playerHP;
@@ -36,12 +41,14 @@ public class UI {
 	private Canvas canvas;
 	private Background background;
 	private ScrollPane inventory;
+	private Actor player;
 	
 	
 	public UI(Rectangle2D sceneBounds, Actor player) {
 		playerHP = new SimpleStringProperty("HP: ");
 		playerDEF = new SimpleStringProperty("DEF: ");
 		playerATK = new SimpleStringProperty("ATK: ");
+		this.player = player;
 		
 		Text hp = new Text();
 		hp.textProperty().bind(playerHP);
@@ -63,7 +70,7 @@ public class UI {
 		overlay = new BorderPane();
 		statDisplay = new FlowPane();
 		canvas = new Canvas(sceneBounds.getWidth(), sceneBounds.getHeight());
-		inventory = new ScrollPane(new HBox());
+		inventory = new ScrollPane(new VBox());
 		background = new Background(new BackgroundFill(Color.GREY, new CornerRadii(0), new Insets(0, sceneBounds.getWidth() / 4, 0, sceneBounds.getWidth() / 4)));
 		
 		overlay.setPrefSize(sceneBounds.getWidth(), sceneBounds.getHeight());
@@ -76,7 +83,6 @@ public class UI {
 		statDisplay.getChildren().add(hp);
 		statDisplay.getChildren().add(def);
 		statDisplay.getChildren().add(str);
-		
 		
 		overlay.setBottom(statDisplay);
 		overlay.setRight(inventory);
@@ -106,19 +112,24 @@ public class UI {
 	}
 	
 	public void updatePlayerInventory(ArrayList<Item> inv) {
-		((HBox) inventory.getContent()).getChildren().clear();
+		((VBox) inventory.getContent()).getChildren().clear();
 		
 		for(Item i: inv) {
 			Button b = new Button(i.getName());
 			b.setPrefSize(inventory.getWidth() - 2.5, inventory.getHeight() / 10);
 			b.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent e) {
-					i.use(i.getOwner());
-					((HBox) inventory.getContent()).getChildren().remove(b);
+					player.setMyTurn(new TurnUse(i, player));
 				}
 			});
 			
-			((HBox) inventory.getContent()).getChildren().add(b);
+			if(i instanceof Equipable) {
+				if(((Equipable) i).getIsEquipped()) {
+					b.setText(b.getText() + " (Equipped)");
+				}
+			}
+			
+			((VBox) inventory.getContent()).getChildren().add(b);
 		}
 	}
 }

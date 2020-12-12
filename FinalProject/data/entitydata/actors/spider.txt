@@ -1,3 +1,4 @@
+
 type:actor,
 name:Spider,
 sprite:sprite_spider,

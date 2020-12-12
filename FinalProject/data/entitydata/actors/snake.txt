@@ -1,3 +1,4 @@
+
 type:actor,
 name:Snake,
 sprite:sprite_snake,

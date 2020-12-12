@@ -31,10 +31,14 @@ public class Weapon extends Equipable {
 	
 	public void use(Actor a) {
 		if(a == owner) {
-			Weapon equippedWeapon = a.getEquippedWeapon();
-			if (equippedWeapon != null)
-				equippedWeapon.isEquipped = false;
-			isEquipped = true;
+			if(isEquipped) {
+				isEquipped = false;
+			} else {
+				Weapon equippedWeapon = a.getEquippedWeapon();
+				if (equippedWeapon != null)
+					equippedWeapon.isEquipped = false;
+				isEquipped = true;
+			}
 		} else {
 			Map<String, Integer> targetStats = a.getStats();
 			targetStats.put("HP", targetStats.get("HP") - damage - ((Actor) owner).getStats().get("STR"));

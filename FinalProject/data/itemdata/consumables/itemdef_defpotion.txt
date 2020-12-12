@@ -1,0 +1,4 @@
+type:consumable,
+name:Defense Potion,
+value:10,
+targetstat:DEF,

@@ -1,1 +1,3 @@
 container_strpotion:data\\entitydata\\containerdata\\containerdef_strpotion.txt,
+container_defpotion:data\\entitydata\\containerdata\\containerdef_defpotion.txt,
+container_hppotion:data\\entitydata\\containerdata\\containerdef_hppotion.txt,

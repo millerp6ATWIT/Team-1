@@ -8,7 +8,7 @@ import java.io.File;
 public class Container extends Entity {
 	
 	final static int NUM_ITEMS_CAN_HOLD = 10;
-	private ArrayList<Item> inventory;
+	private ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	public Container(ArrayList<Item> inv, int[] pos, String name, String sprite) {
 		super(pos, name, sprite);
@@ -19,20 +19,24 @@ public class Container extends Entity {
 		super(containerData);
 		String itemAndNum;
 		String itemType;
+		String item;
 		String itemData;
 		for(int i = 0; i < NUM_ITEMS_CAN_HOLD; i++) {
 			itemAndNum = "item" + i;
-			itemData = Game.fileToString(new File(Game.getDef(Game.extractAttribute(containerData, itemAndNum))));
-			itemType = Game.extractAttribute(itemData, "type");
-			
-			if(itemType.equals("weapon")) {
-				inventory.add(new Weapon(Game.getDef(Game.extractAttribute(containerData, itemAndNum))));
-			}
-			else if(itemType.equals("armor")) {
-				inventory.add(new Armor(Game.getDef(Game.extractAttribute(containerData, itemAndNum))));
-			}
-			else if(itemType.equals("consumable")) {
-				inventory.add(new Consumable(Game.getDef(Game.extractAttribute(containerData, itemAndNum))));
+			item = Game.extractAttribute(containerData, itemAndNum);
+			if(!item.equals("null")) {
+				itemData = Game.processData(Game.fileToString(new File(Game.getDef(item))));
+				itemType = Game.extractAttribute(itemData, "type");
+				
+				if(itemType.equals("weapon")) {
+					inventory.add(new Weapon(itemData));
+				}
+				else if(itemType.equals("armor")) {
+					inventory.add(new Armor(itemData));
+				}
+				else if(itemType.equals("consumable")) {
+					inventory.add(new Consumable(itemData));
+				}
 			}
 		}
 	}

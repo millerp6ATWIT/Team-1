@@ -22,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
 import turn.*;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
 import java.util.Comparator;
 import item.*;
 
@@ -34,18 +36,20 @@ public class Game extends Application {
 	final static String WEAPON_HEADER_DIR = "data\\itemdata\\weapons\\weaponheader.txt";
 	final static String ARMOR_HEADER_DIR = "data\\itemdata\\armor\\armorheader.txt";
 	final static String ACTOR_HEADER_DIR = "data\\entitydata\\actors\\actorheader.txt";
+	final static String CONSUMABLE_HEADER_DIR = "data\\itemdata\\consumables\\consumableheader.txt";
 	final static String TILE_HEADER_DIR = "data\\entitydata\\tiledata\\tileheader.txt";
 	final static String CONTAINER_HEADER_DIR = "data\\entitydata\\containerdata\\containerheader.txt";
 	final static String SPRITE_HEADER_DIR = "data\\spritedata\\spriteheader.txt";
 	final static String LEVEL_HEADER_DIR = "data\\leveldata\\levelheader.txt";
 	
-	final static String WEAPON_DEFS = fileToString(new File(WEAPON_HEADER_DIR));
-	final static String ARMOR_DEFS = fileToString(new File(ARMOR_HEADER_DIR));
-	final static String ACTOR_DEFS = fileToString(new File(ACTOR_HEADER_DIR));
-	final static String TILE_DEFS = fileToString(new File(TILE_HEADER_DIR));
-	final static String CONTAINER_DEFS = fileToString(new File(CONTAINER_HEADER_DIR));
-	final static String SPRITE_DEFS = fileToString(new File(SPRITE_HEADER_DIR));
-	final static String ALL_DEFS = WEAPON_DEFS + ARMOR_DEFS + ACTOR_DEFS + TILE_DEFS + SPRITE_DEFS + CONTAINER_DEFS;
+	final static String WEAPON_DEFS = processData(fileToString(new File(WEAPON_HEADER_DIR)));
+	final static String ARMOR_DEFS = processData(fileToString(new File(ARMOR_HEADER_DIR)));
+	final static String ACTOR_DEFS = processData(fileToString(new File(ACTOR_HEADER_DIR)));
+	final static String CONSUMABLE_DEFS = processData(fileToString(new File(CONSUMABLE_HEADER_DIR)));
+	final static String TILE_DEFS = processData(fileToString(new File(TILE_HEADER_DIR)));
+	final static String CONTAINER_DEFS = processData(fileToString(new File(CONTAINER_HEADER_DIR)));
+	final static String SPRITE_DEFS = processData(fileToString(new File(SPRITE_HEADER_DIR)));
+	final static String ALL_DEFS = WEAPON_DEFS + ARMOR_DEFS + ACTOR_DEFS + TILE_DEFS + SPRITE_DEFS + CONTAINER_DEFS + CONSUMABLE_DEFS;
 	
 	final static Image spritesheet = new Image(new File(SPRITESHEET_DIR).toURI().toString());
 	
@@ -60,9 +64,7 @@ public class Game extends Application {
 		player = level.getPlayer();
 		cameraPos = new double[2];
 		
-		Consumable c = new Consumable(10, "HP", false, player);
-		c.setName("Test Item");
-		player.getInventory().add(c);
+		Container c = new Container(Game.fileToString(new File(Game.getDef("container_strpotion"))));
 	}
 	
 	public void stop() {
@@ -75,6 +77,26 @@ public class Game extends Application {
 		} catch (Exception e) {
 			return "";
 		}
+	}
+	
+	public static String processData(String toProcess) {
+		if(toProcess.length() > 0) {
+			toProcess = toProcess.replaceAll(";", ",");
+			if(toProcess.charAt(0) != System.lineSeparator().charAt(0))
+				toProcess = System.lineSeparator() + toProcess;
+			for(int i = 0; i < toProcess.length(); i++) {
+				if(toProcess.charAt(i) == ',') {
+					if(i < toProcess.length() - 1) {
+						if(toProcess.charAt(i + 1) != System.lineSeparator().charAt(0)) {
+							toProcess = toProcess.substring(0, i + 1) + System.lineSeparator() + toProcess.substring(i + System.lineSeparator().length() + 1);
+						}
+					} else {
+						toProcess = toProcess + System.lineSeparator();
+					}
+				}
+			}
+		}
+		return toProcess;
 	}
 	
 	public static String getDef(String toGet) {
@@ -102,45 +124,56 @@ public class Game extends Application {
 	}
 	
 	public static String extractAttribute(String data, String attribute) {
-		if (data.contains(attribute)) {
-			int indexStart = data.indexOf(attribute + ":") + attribute.length() + 1;
-			int indexEnd = data.indexOf(",", indexStart);
+		String startToken = (System.getProperty("line.separator") + attribute + ":");
+		String endToken = ",";
+		if (data.contains(startToken)) {
+			int indexStart = data.indexOf(startToken) + startToken.length();
+			int indexEnd = data.indexOf(endToken, indexStart);
+			//System.out.println("\"" + attribute + "\"" + " expanded to " + "\"" + data.substring(indexStart, indexEnd) + "\"");
 			return(data.substring(indexStart, indexEnd));
 		}
 		return null;
 	}
 	
 	public void processTurns() {
-		player.doTurn();
-		
-		for(Entity e: level.getEntities()) {
-			if(e instanceof Actor && e != player) {
-				Actor a = (Actor) e;
-				
-				if(a.getDistanceFrom(player.getPosition()) < 10) {
-					a.setMyTurn(a.getEnemyTurn(level));
-				} else {
-					a.setMyTurn(new TurnPass());
+		if(player.getMyTurn() != null) {
+			player.doTurn();
+			
+			ArrayList<Entity> toRemove = new ArrayList<>();
+			for(Entity e: level.getEntities()) {
+				if(e instanceof Actor) {
+					Actor a = (Actor) e;
+					if(e != player) {
+						if(a.getDistanceFrom(player.getPosition()) < 10) {
+							a.setMyTurn(a.getEnemyTurn(level));
+						} else {
+							a.setMyTurn(new TurnPass());
+						}
+						
+						a.doTurn();
+					}
+					a.pickUp(level);
+					if(a.getStats().get("HP") <= 0) {
+						a.getStats().put("HP", 0);
+						toRemove.add(a);
+					}
 				}
-				
-				a.doTurn();
-			}
-		}
-		
-		for(Entity e: level.getEntities()) {
-			if(e instanceof Actor) {
-				Actor a = (Actor) e;
-				if(a.getStats().get("HP") < 1) {
-					if(a.equals(player)) {
-						Platform.exit();
-					} else {
-						level.getEntities().remove(a);
+				if(e instanceof Container) {
+					Container c = (Container) e;
+					if(c.getInventory().size() == 0) {
+						toRemove.add(c);
 					}
 				}
 			}
+			level.getEntities().removeAll(toRemove);
+			
+			if(level.getPlayer() == null) {
+				init();
+			}
+			
+			ui.updatePlayerInventory(player.getInventory());
+			turn++;
 		}
-		
-		turn++;
 	}
 	
 	public void handleInput(KeyCode k) {
@@ -181,13 +214,11 @@ public class Game extends Application {
 			
 			if(isEnemy) {
 				player.setMyTurn(new TurnUse(player.getEquippedWeapon(), ((TurnMove) playerTurn).getEnemyAt(level)));
-				processTurns();
-			}else if(isLegal) {
-				processTurns();
-			} else {
+			}else if(!isLegal) {
 				player.setMyTurn(null);
 			}
 		}
+		
 	}
 	
 	public void start(Stage stage) {
@@ -216,6 +247,7 @@ public class Game extends Application {
 		
 		new AnimationTimer() {
 			public void handle(long now) {
+				processTurns();
 				cameraPos[0] = (player.getPosition()[0] * TILE_WIDTH) - ui.getCanvas().getWidth() / 2;
 				cameraPos[1] = (player.getPosition()[1] * TILE_HEIGHT) - ui.getCanvas().getHeight() / 2;
 				renderScreen(gc, cameraPos);

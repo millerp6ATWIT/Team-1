@@ -18,6 +18,7 @@ public class Level {
 	}
 	
 	public Level(String levelHeader, String leveldata) {
+		levelHeader = Game.processData(levelHeader);
 		entities = new ArrayList<Entity>();
 		
 		String entityData, type;
@@ -32,7 +33,7 @@ public class Level {
 			} else if(c == '\r') {
 				
 			} else {
-				entityData = Game.fileToString(new File(Game.getDef(Game.extractAttribute(levelHeader, Character.toString(c)))));
+				entityData = Game.processData(Game.fileToString(new File(Game.getDef(Game.extractAttribute(levelHeader, Character.toString(c))))));
 				type = Game.extractAttribute(entityData, "type");
 				
 				if(type.equals("actor")) {
@@ -66,6 +67,10 @@ public class Level {
 	
 	public void addEntity(Entity toAdd) {
 		entities.add(toAdd);
+	}
+	
+	public void removeEntity(Entity toRemove) {
+		entities.remove(toRemove);
 	}
 	
 	public Actor getPlayer() {

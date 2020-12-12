@@ -1,3 +1,4 @@
+
 type:actor,
 name:Skeleton,
 sprite:sprite_skeleton,
