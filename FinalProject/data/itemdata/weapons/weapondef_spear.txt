@@ -1,0 +1,3 @@
+type:weapon,
+name:Spear,
+damage:40,

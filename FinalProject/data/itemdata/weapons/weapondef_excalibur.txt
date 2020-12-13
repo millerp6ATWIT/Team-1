@@ -1,0 +1,3 @@
+type:weapon,
+name:Excalibur,
+damage:80,

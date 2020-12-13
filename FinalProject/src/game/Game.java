@@ -133,6 +133,7 @@ public class Game extends Application {
 		if (data.contains(startToken)) {
 			int indexStart = data.indexOf(startToken) + startToken.length();
 			int indexEnd = data.indexOf(endToken, indexStart);
+			//System.out.println(data.substring(indexStart, indexEnd));
 			return(data.substring(indexStart, indexEnd));
 		}
 		return null;
