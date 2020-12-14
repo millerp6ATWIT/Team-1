@@ -1,3 +1,0 @@
-type:weapon,
-name:Test Weapon,
-damage:10,

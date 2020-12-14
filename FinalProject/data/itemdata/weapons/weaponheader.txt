@@ -1,1 +1,8 @@
-testweapon:data\\itemdata\\weapon\\testweapon.txt;
+weapon_knife:data\\itemdata\\weapons\\weapondef_knife.txt,
+weapon_shortsword:data\\itemdata\\weapons\\weapondef_shortsword.txt,
+weapon_broadsword:data\\itemdata\\weapons\\weapondef_broadsword.txt,
+weapon_mace:data\\itemdata\\weapons\\weapondef_mace.txt,
+weapon_longsword:data\\itemdata\\weapons\\weapondef_longsword.txt,
+weapon_spear:data\\itemdata\\weapons\\weapondef_spear.txt,
+weapon_claymore:data\\itemdata\\weapons\\weapondef_claymore.txt,
+weapon_excalibur:data\\itemdata\\weapons\\weapondef_excalibur.txt,

@@ -133,7 +133,7 @@ public class Game extends Application {
 		if (data.contains(startToken)) {
 			int indexStart = data.indexOf(startToken) + startToken.length();
 			int indexEnd = data.indexOf(endToken, indexStart);
-			//System.out.println("\"" + attribute + "\"" + " expanded to " + "\"" + data.substring(indexStart, indexEnd) + "\"");
+			//System.out.println(data.substring(indexStart, indexEnd));
 			return(data.substring(indexStart, indexEnd));
 		}
 		return null;
@@ -204,22 +204,22 @@ public class Game extends Application {
 		} else if(k == KeyCode.Q) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0] - 1;
-			destination[1] = player.getPosition()[1] + 1;
+			destination[1] = player.getPosition()[1] - 1;
 			player.setMyTurn(new TurnMove(destination, player));
 		} else if(k == KeyCode.E) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0] + 1;
-			destination[1] = player.getPosition()[1] + 1;
+			destination[1] = player.getPosition()[1] - 1;
 			player.setMyTurn(new TurnMove(destination, player));
 		} else if(k == KeyCode.Z) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0] - 1;
-			destination[1] = player.getPosition()[1] - 1;
+			destination[1] = player.getPosition()[1] + 1;
 			player.setMyTurn(new TurnMove(destination, player));
 		} else if(k == KeyCode.C) {
 			int[] destination = new int[2];
 			destination[0] = player.getPosition()[0] + 1;
-			destination[1] = player.getPosition()[1] - 1;
+			destination[1] = player.getPosition()[1] + 1;
 			player.setMyTurn(new TurnMove(destination, player));
 		} else if(k == KeyCode.S) {
 			player.setMyTurn(new TurnPass());
@@ -240,7 +240,7 @@ public class Game extends Application {
 			
 			if(isEnemy) {
 				player.setMyTurn(new TurnUse(player.getEquippedWeapon(), ((TurnMove) playerTurn).getEnemyAt(level)));
-			}else if(!isLegal) {
+			} else if(!isLegal) {
 				player.setMyTurn(null);
 			}
 		}

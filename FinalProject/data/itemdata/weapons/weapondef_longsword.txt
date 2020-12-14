@@ -1,0 +1,3 @@
+type:weapon,
+name:Longsword,
+damage:35,
