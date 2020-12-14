@@ -1,6 +1,6 @@
 type:actor,
 name:Wolf,
 sprite:sprite_wolf,
-HP:30,
+HP:60,
 DEF:10,
-STR:5,
+STR:50,

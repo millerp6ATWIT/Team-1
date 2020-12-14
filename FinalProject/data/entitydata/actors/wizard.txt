@@ -1,6 +1,6 @@
 type:actor,
 name:Wizard,
 sprite:sprite_wizard,
-HP:25,
+HP:75,
 DEF:20,
-STR:20,
+STR:50,
